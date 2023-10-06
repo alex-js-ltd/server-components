@@ -10,7 +10,7 @@ import {
 } from 'react'
 
 import { Dialog } from '@headlessui/react'
-import { CircleButton } from './circle-button'
+import { CircleButton } from './buttons'
 
 const callAll =
   (...fns: Function[]) =>
@@ -60,8 +60,10 @@ const ModalOpenButton = ({ children: child }: { children: ReactElement }) => {
 const ModalContentsBase = ({ children }: { children: ReactNode }) => {
   const { isOpen, setIsOpen } = useModal()
 
+  const onClose = () => setIsOpen(false)
+
   return (
-    <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+    <Dialog open={isOpen} onClose={onClose}>
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 
       {/* Full-screen container to center the panel */}

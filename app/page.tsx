@@ -5,7 +5,7 @@ import { cloneElement } from 'react'
 import { Modal } from '@/comps/modal'
 import { FormGroup, Input } from '@/comps/form-elements'
 
-export default function Home() {
+const Home = () => {
   return (
     <main>
       <Modal>
@@ -74,3 +74,5 @@ const LoginForm = ({ submitButton }: { submitButton: ReactElement }) => {
     </form>
   )
 }
+
+export default Home
