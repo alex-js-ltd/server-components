@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { clsx } from 'clsx'
 
 function FormGroup({ children }: { children: ReactNode }) {
-  return <div className="flex flex-col">{children}</div>
+  return <div className="flex flex-col max-w-xs w-full my-2">{children}</div>
 }
 
 function Input(props: JSX.IntrinsicElements['input']) {

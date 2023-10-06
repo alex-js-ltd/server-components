@@ -67,7 +67,7 @@ const ModalContentsBase = ({ children }: { children: ReactNode }) => {
       {/* Full-screen container to center the panel */}
       <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
         {/* The actual dialog panel  */}
-        <Dialog.Panel className="mx-auto max-w-md rounded bg-white w-full">
+        <Dialog.Panel className="w-full max-w-[450px] bg-white rounded flex flex-col items-center p-4">
           {children}
         </Dialog.Panel>
       </div>
@@ -84,14 +84,14 @@ const ModalContents = ({
 }) => {
   return (
     <ModalContentsBase>
-      <div className="flex justify-end">
+      <div className="flex justify-end w-full">
         <ModalDismissButton>
           <CircleButton>
             <span aria-hidden>×</span>
           </CircleButton>
         </ModalDismissButton>
       </div>
-      <Dialog.Title>{title}</Dialog.Title>
+      <h3 className="text-center text-2xl">{title}</h3>
       {children}
     </ModalContentsBase>
   )
