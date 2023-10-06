@@ -7,4 +7,4 @@ const CircleButton = (props: ButtonHTMLAttributes<HTMLButtonElement>) => (
   />
 )
 
-export { CircleButton }
+export default CircleButton

@@ -1,3 +1,5 @@
+'use client'
+
 import {
   createContext,
   cloneElement,
@@ -7,7 +9,7 @@ import {
   ReactNode,
 } from 'react'
 
-import Dialog from './dialog'
+import { Dialog } from '@headlessui/react'
 import CircleButton from './circle-button'
 
 const callAll =
@@ -35,7 +37,11 @@ const useModal = () => {
   return context
 }
 
-Modal.DismissButton = ({ children: child }: { children: ReactElement }) => {
+const ModalDismissButton = ({
+  children: child,
+}: {
+  children: ReactElement
+}) => {
   const { setIsOpen } = useModal()
 
   return cloneElement(child, {
@@ -43,7 +49,7 @@ Modal.DismissButton = ({ children: child }: { children: ReactElement }) => {
   })
 }
 
-Modal.OpenButton = ({ children: child }: { children: ReactElement }) => {
+const ModalOpenButton = ({ children: child }: { children: ReactElement }) => {
   const { setIsOpen } = useModal()
 
   return cloneElement(child, {
@@ -51,17 +57,29 @@ Modal.OpenButton = ({ children: child }: { children: ReactElement }) => {
   })
 }
 
-Modal.ContentsBase = ({ children }: { children: ReactNode }) => {
+const ModalContentsBase = ({ children }: { children: ReactNode }) => {
   const { isOpen, setIsOpen } = useModal()
 
   return (
-    <Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
-      {children}
+    <Dialog
+      open={isOpen}
+      onClose={() => setIsOpen(false)}
+      style={{ minHeight: '405px' }}
+    >
+      <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+
+      {/* Full-screen container to center the panel */}
+      <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+        {/* The actual dialog panel  */}
+        <Dialog.Panel className="mx-auto max-w-sm rounded bg-white">
+          {children}
+        </Dialog.Panel>
+      </div>
     </Dialog>
   )
 }
 
-Modal.Contents = ({
+const ModalContents = ({
   title,
   children,
 }: {
@@ -69,18 +87,22 @@ Modal.Contents = ({
   children: ReactElement
 }) => {
   return (
-    <Modal.ContentsBase>
+    <ModalContentsBase>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Modal.DismissButton>
+        <ModalDismissButton>
           <CircleButton>
             <span aria-hidden>×</span>
           </CircleButton>
-        </Modal.DismissButton>
+        </ModalDismissButton>
       </div>
-      <h3 style={{ textAlign: 'center', fontSize: '2em' }}>{title}</h3>
+      <Dialog.Title>{title}</Dialog.Title>
       {children}
-    </Modal.ContentsBase>
+    </ModalContentsBase>
   )
 }
+
+Modal.DismissButton = ModalDismissButton
+Modal.OpenButton = ModalOpenButton
+Modal.Contents = ModalContents
 
 export { Modal }
