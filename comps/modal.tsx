@@ -10,7 +10,7 @@ import {
 } from 'react'
 
 import { Dialog } from '@headlessui/react'
-import CircleButton from './circle-button'
+import { CircleButton } from './circle-button'
 
 const callAll =
   (...fns: Function[]) =>
@@ -67,7 +67,7 @@ const ModalContentsBase = ({ children }: { children: ReactNode }) => {
       {/* Full-screen container to center the panel */}
       <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
         {/* The actual dialog panel  */}
-        <Dialog.Panel className="mx-auto max-w-sm rounded bg-white w-full">
+        <Dialog.Panel className="mx-auto max-w-md rounded bg-white w-full">
           {children}
         </Dialog.Panel>
       </div>
