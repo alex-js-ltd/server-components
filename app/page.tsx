@@ -50,7 +50,10 @@ const LoginForm = ({ submitButton }: { submitButton: ReactElement }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col items-center w-full">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-stretch w-full max-w-xs"
+    >
       <FormGroup>
         <label htmlFor="email">Email</label>
         <Input id="email" />
