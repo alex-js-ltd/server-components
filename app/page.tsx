@@ -16,7 +16,7 @@ export default function Home() {
         </Modal.OpenButton>
 
         <Modal.Contents title="hello">
-          <>hello</>
+          <h1>hello</h1>
         </Modal.Contents>
       </Modal>
     </main>

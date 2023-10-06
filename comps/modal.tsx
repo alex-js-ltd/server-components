@@ -61,17 +61,13 @@ const ModalContentsBase = ({ children }: { children: ReactNode }) => {
   const { isOpen, setIsOpen } = useModal()
 
   return (
-    <Dialog
-      open={isOpen}
-      onClose={() => setIsOpen(false)}
-      style={{ minHeight: '405px' }}
-    >
+    <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 
       {/* Full-screen container to center the panel */}
       <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
         {/* The actual dialog panel  */}
-        <Dialog.Panel className="mx-auto max-w-sm rounded bg-white">
+        <Dialog.Panel className="mx-auto max-w-sm rounded bg-white w-full">
           {children}
         </Dialog.Panel>
       </div>
@@ -88,7 +84,7 @@ const ModalContents = ({
 }) => {
   return (
     <ModalContentsBase>
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <div className="flex justify-end">
         <ModalDismissButton>
           <CircleButton>
             <span aria-hidden>×</span>
