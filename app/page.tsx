@@ -4,37 +4,34 @@ import type { ReactElement, FormEvent } from 'react'
 import { cloneElement } from 'react'
 import { Modal } from '@/comps/modal'
 import { FormGroup, Input } from '@/comps/form-elements'
+import { LoginButton } from '@/comps/buttons'
 
 const Home = () => {
   return (
     <main>
       <Modal>
         <Modal.OpenButton>
-          <button
-            type="button"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          >
-            Login
-          </button>
+          <LoginButton variant="primary">Login</LoginButton>
         </Modal.OpenButton>
 
         <Modal.Contents title="Login">
-          <LoginForm submitButton={<button></button>} />
+          <LoginForm
+            submitButton={<LoginButton variant="primary" children="Login" />}
+          />
         </Modal.Contents>
       </Modal>
 
       <Modal>
         <Modal.OpenButton>
-          <button
-            type="button"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          >
-            Register
-          </button>
+          <LoginButton variant="secondary">Register</LoginButton>
         </Modal.OpenButton>
 
         <Modal.Contents title="Register">
-          <LoginForm submitButton={<button></button>} />
+          <LoginForm
+            submitButton={
+              <LoginButton variant="secondary" children="Register" />
+            }
+          />
         </Modal.Contents>
       </Modal>
     </main>
