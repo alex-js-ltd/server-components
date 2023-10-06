@@ -1,8 +1,7 @@
-import type { ReactNode } from 'react'
 import { clsx } from 'clsx'
 
-function FormGroup({ children }: { children: ReactNode }) {
-  return <div className="flex flex-col max-w-xs w-full my-2">{children}</div>
+function FormGroup(props: JSX.IntrinsicElements['input']) {
+  return <div {...props} className="flex flex-col max-w-xs w-full my-2" />
 }
 
 function Input(props: JSX.IntrinsicElements['input']) {
