@@ -8,33 +8,35 @@ import { LoginButton } from '@/comps/buttons'
 
 const Home = () => {
   return (
-    <main>
-      <Modal>
-        <Modal.OpenButton>
-          <LoginButton variant="primary">Login</LoginButton>
-        </Modal.OpenButton>
+    <div className="flex flex-col items-center justify-center w-full h-screen">
+      <div className="grid grid-cols-2 gap-3">
+        <Modal>
+          <Modal.OpenButton>
+            <LoginButton variant="primary">Login</LoginButton>
+          </Modal.OpenButton>
 
-        <Modal.Contents title="Login">
-          <LoginForm
-            submitButton={<LoginButton variant="primary" children="Login" />}
-          />
-        </Modal.Contents>
-      </Modal>
+          <Modal.Contents title="Login">
+            <LoginForm
+              submitButton={<LoginButton variant="primary" children="Login" />}
+            />
+          </Modal.Contents>
+        </Modal>
 
-      <Modal>
-        <Modal.OpenButton>
-          <LoginButton variant="secondary">Register</LoginButton>
-        </Modal.OpenButton>
+        <Modal>
+          <Modal.OpenButton>
+            <LoginButton variant="secondary">Register</LoginButton>
+          </Modal.OpenButton>
 
-        <Modal.Contents title="Register">
-          <LoginForm
-            submitButton={
-              <LoginButton variant="secondary" children="Register" />
-            }
-          />
-        </Modal.Contents>
-      </Modal>
-    </main>
+          <Modal.Contents title="Register">
+            <LoginForm
+              submitButton={
+                <LoginButton variant="secondary" children="Register" />
+              }
+            />
+          </Modal.Contents>
+        </Modal>
+      </div>
+    </div>
   )
 }
 
