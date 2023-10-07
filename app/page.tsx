@@ -1,40 +1,32 @@
-'use client'
-
 import type { ReactElement, FormEvent } from 'react'
 import { cloneElement } from 'react'
-import { Modal } from '@/comps/modal'
 import { FormGroup, Input } from '@/comps/form-elements'
 import { LoginButton } from '@/comps/buttons'
+import { AuthModal } from '@/comps/modal'
 
 const Home = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
       <div className="grid grid-cols-2 gap-3">
-        <Modal>
-          <Modal.OpenButton>
-            <LoginButton variant="primary">Login</LoginButton>
-          </Modal.OpenButton>
+        <AuthModal
+          openButton={<LoginButton variant="primary" children="Login" />}
+          title="Login"
+        >
+          <LoginForm
+            submitButton={<LoginButton variant="primary" children="Login" />}
+          />
+        </AuthModal>
 
-          <Modal.Contents title="Login">
-            <LoginForm
-              submitButton={<LoginButton variant="primary" children="Login" />}
-            />
-          </Modal.Contents>
-        </Modal>
-
-        <Modal>
-          <Modal.OpenButton>
-            <LoginButton variant="secondary">Register</LoginButton>
-          </Modal.OpenButton>
-
-          <Modal.Contents title="Register">
-            <LoginForm
-              submitButton={
-                <LoginButton variant="secondary" children="Register" />
-              }
-            />
-          </Modal.Contents>
-        </Modal>
+        <AuthModal
+          openButton={<LoginButton variant="secondary" children="Register" />}
+          title="Register"
+        >
+          <LoginForm
+            submitButton={
+              <LoginButton variant="secondary" children="Register" />
+            }
+          />
+        </AuthModal>
       </div>
     </div>
   )
@@ -52,10 +44,7 @@ const LoginForm = ({ submitButton }: { submitButton: ReactElement }) => {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col items-stretch w-full max-w-xs"
-    >
+    <form className="flex flex-col items-stretch w-full max-w-xs">
       <FormGroup>
         <label htmlFor="email">Email</label>
         <Input id="email" />

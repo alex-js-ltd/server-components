@@ -11,7 +11,7 @@ import {
 import { callAll } from '@/utils/call-all'
 
 import { Dialog } from '@headlessui/react'
-import { CircleButton } from './buttons'
+import { CircleButton, LoginButton } from './buttons'
 
 const ModalContext = createContext<
   { isOpen: boolean; setIsOpen: Function } | undefined
@@ -99,4 +99,19 @@ Modal.DismissButton = ModalDismissButton
 Modal.OpenButton = ModalOpenButton
 Modal.Contents = ModalContents
 
-export { Modal }
+const AuthModal = ({
+  openButton,
+  title,
+  children: child,
+}: {
+  openButton: ReactElement
+  title: string
+  children: ReactElement
+}) => (
+  <Modal>
+    <Modal.OpenButton>{openButton}</Modal.OpenButton>
+    <Modal.Contents title={title}>{child}</Modal.Contents>
+  </Modal>
+)
+
+export { Modal, AuthModal }
