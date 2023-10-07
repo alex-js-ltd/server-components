@@ -8,14 +8,10 @@ import {
   ReactElement,
   ReactNode,
 } from 'react'
+import { callAll } from '@/utils/call-all'
 
 import { Dialog } from '@headlessui/react'
 import { CircleButton } from './buttons'
-
-const callAll =
-  (...fns: Function[]) =>
-  (...args: any) =>
-    fns.forEach((fn: Function) => fn && fn(...args))
 
 const ModalContext = createContext<
   { isOpen: boolean; setIsOpen: Function } | undefined
