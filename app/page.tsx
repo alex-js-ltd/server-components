@@ -2,31 +2,25 @@ import type { ReactElement, FormEvent } from 'react'
 import { cloneElement } from 'react'
 import { FormGroup, Input } from '@/comps/form-elements'
 import { LoginButton } from '@/comps/buttons'
-import { AuthModal } from '@/comps/modal'
+import { LoginModal, RegisterModal } from '@/comps/modal'
 
 const Home = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
       <div className="grid grid-cols-2 gap-3">
-        <AuthModal
-          openButton={<LoginButton variant="primary" children="Login" />}
-          title="Login"
-        >
+        <LoginModal>
           <LoginForm
             submitButton={<LoginButton variant="primary" children="Login" />}
           />
-        </AuthModal>
+        </LoginModal>
 
-        <AuthModal
-          openButton={<LoginButton variant="secondary" children="Register" />}
-          title="Register"
-        >
+        <RegisterModal>
           <LoginForm
             submitButton={
               <LoginButton variant="secondary" children="Register" />
             }
           />
-        </AuthModal>
+        </RegisterModal>
       </div>
     </div>
   )

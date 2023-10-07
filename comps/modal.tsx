@@ -99,19 +99,22 @@ Modal.DismissButton = ModalDismissButton
 Modal.OpenButton = ModalOpenButton
 Modal.Contents = ModalContents
 
-const AuthModal = ({
-  openButton,
-  title,
-  children: child,
-}: {
-  openButton: ReactElement
-  title: string
-  children: ReactElement
-}) => (
+const LoginModal = ({ children: child }: { children: ReactElement }) => (
   <Modal>
-    <Modal.OpenButton>{openButton}</Modal.OpenButton>
-    <Modal.Contents title={title}>{child}</Modal.Contents>
+    <Modal.OpenButton>
+      <LoginButton variant="primary">Login</LoginButton>
+    </Modal.OpenButton>
+    <Modal.Contents title="Login">{child}</Modal.Contents>
   </Modal>
 )
 
-export { Modal, AuthModal }
+const RegisterModal = ({ children: child }: { children: ReactElement }) => (
+  <Modal>
+    <Modal.OpenButton>
+      <LoginButton variant="secondary">Register</LoginButton>
+    </Modal.OpenButton>
+    <Modal.Contents title="Register">{child}</Modal.Contents>
+  </Modal>
+)
+
+export { Modal, LoginModal, RegisterModal }
