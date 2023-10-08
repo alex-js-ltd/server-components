@@ -4,7 +4,8 @@ import { cloneElement } from 'react'
 import { FormGroup, Input } from '@/comps/form-elements'
 import { LoginButton } from '@/comps/buttons'
 import { LoginModal, RegisterModal } from '@/comps/modal'
-
+import { isOnSubmitData } from '@/utils/type-guards'
+import { OnSubmit } from '@/types'
 import * as auth from '@/utils/auth-provider'
 
 const Home = () => {
@@ -33,18 +34,20 @@ const Form = async ({
   onSubmit,
   submitButton,
 }: {
-  onSubmit: any
+  onSubmit: OnSubmit
   submitButton: ReactElement
 }) => {
   const handleSubmit = async (data: FormData) => {
     'use server'
 
-    const email = data.get('email')
-    const password = data.get('password')
+    const onSubmitData = {
+      email: data.get('email'),
+      password: data.get('password'),
+    }
 
-    console.log('props', email, password)
-
-    await onSubmit({ email, password })
+    if (isOnSubmitData(onSubmitData)) {
+      await onSubmit({ ...onSubmitData })
+    }
   }
 
   return (

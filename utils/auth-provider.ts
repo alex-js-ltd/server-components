@@ -4,8 +4,6 @@ import { getEnv } from './env'
 
 const { SIGN_UP_URL } = getEnv()
 
-console.log('url', SIGN_UP_URL)
-
 const register = async ({
   email,
   password,
@@ -13,9 +11,7 @@ const register = async ({
   email: string
   password: string
 }) => {
-  return client(SIGN_UP_URL, { email, password, returnSecureToken: true }).then(
-    res => console.log(res),
-  )
+  return client(SIGN_UP_URL, { email, password, returnSecureToken: true })
 }
 
 const client = async <DataType>(
@@ -27,8 +23,6 @@ const client = async <DataType>(
     body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json' },
   }
-
-  console.log('config', config)
 
   return fetch(`${endpoint}`, config).then(async response => {
     const data = await response.json()
