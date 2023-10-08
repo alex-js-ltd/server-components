@@ -37,6 +37,7 @@ const client = async <DataType>(
   return fetch(`${endpoint}`, config).then(async response => {
     const data = await response.json()
 
+    console.log(data)
     if (response.ok) {
       return data
     } else {
