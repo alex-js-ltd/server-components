@@ -5,6 +5,8 @@ import { FormGroup, Input } from '@/comps/form-elements'
 import { LoginButton } from '@/comps/buttons'
 import { LoginModal, RegisterModal } from '@/comps/modal'
 
+import * as auth from '@/utils/auth-provider'
+
 const Home = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
@@ -17,6 +19,7 @@ const Home = () => {
 
         <RegisterModal>
           <Form
+            onSubmit={auth.register}
             submitButton={<LoginButton variant="primary">Login</LoginButton>}
           />
         </RegisterModal>
@@ -25,19 +28,18 @@ const Home = () => {
   )
 }
 
-const Form = ({ submitButton }: { submitButton: ReactElement }) => {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const form = event.currentTarget
+const Form = async ({ onSubmit, submitButton }: { onSubmit: any submitButton: ReactElement }) => {
+  const handleSubmit = async (data: FormData) => {
+    'use server'
 
-    const formElements = form.elements as typeof form.elements & {
-      email: HTMLInputElement
-      password: HTMLInputElement
-    }
+    const email = data.get('email')
+    const password = data.get('email')
+
+    onSubmit({ email, password })
   }
 
   return (
-    <form className="flex flex-col items-stretch w-full max-w-xs">
+    <form action={handleSubmit} className="flex flex-col items-stretch w-full max-w-xs">
       <FormGroup>
         <label htmlFor="email">Email</label>
         <Input id="email" />
