@@ -13,6 +13,7 @@ const Home = () => {
       <div className="grid grid-cols-2 gap-3">
         <LoginModal>
           <Form
+            onSubmit={auth.register}
             submitButton={<LoginButton variant="primary">Login</LoginButton>}
           />
         </LoginModal>
@@ -28,25 +29,36 @@ const Home = () => {
   )
 }
 
-const Form = async ({ onSubmit, submitButton }: { onSubmit: any submitButton: ReactElement }) => {
+const Form = async ({
+  onSubmit,
+  submitButton,
+}: {
+  onSubmit: any
+  submitButton: ReactElement
+}) => {
   const handleSubmit = async (data: FormData) => {
     'use server'
 
     const email = data.get('email')
-    const password = data.get('email')
+    const password = data.get('password')
+
+    console.log('props', email, password)
 
     onSubmit({ email, password })
   }
 
   return (
-    <form action={handleSubmit} className="flex flex-col items-stretch w-full max-w-xs">
+    <form
+      action={handleSubmit}
+      className="flex flex-col items-stretch w-full max-w-xs"
+    >
       <FormGroup>
         <label htmlFor="email">Email</label>
-        <Input id="email" />
+        <Input id="email" name="email" />
       </FormGroup>
       <FormGroup>
         <label htmlFor="password">Password</label>
-        <Input id="password" type="password" />
+        <Input id="password" type="password" name="password" />
       </FormGroup>
       <div>
         {cloneElement(
