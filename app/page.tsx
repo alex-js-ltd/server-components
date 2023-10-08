@@ -1,11 +1,12 @@
 import type { ReactElement } from 'react'
+import type { OnSubmit } from '@/types'
 
 import { cloneElement } from 'react'
 import { FormGroup, Input } from '@/comps/form-elements'
 import { LoginButton } from '@/comps/buttons'
 import { LoginModal, RegisterModal } from '@/comps/modal'
 import { isOnSubmitData } from '@/utils/type-guards'
-import { OnSubmit } from '@/types'
+
 import * as auth from '@/utils/auth-provider'
 
 const Home = () => {
@@ -14,7 +15,7 @@ const Home = () => {
       <div className="grid grid-cols-2 gap-3">
         <LoginModal>
           <Form
-            onSubmit={auth.register}
+            onSubmit={auth.login}
             submitButton={<LoginButton variant="primary">Login</LoginButton>}
           />
         </LoginModal>
@@ -22,7 +23,9 @@ const Home = () => {
         <RegisterModal>
           <Form
             onSubmit={auth.register}
-            submitButton={<LoginButton variant="primary">Login</LoginButton>}
+            submitButton={
+              <LoginButton variant="secondary">Register</LoginButton>
+            }
           />
         </RegisterModal>
       </div>

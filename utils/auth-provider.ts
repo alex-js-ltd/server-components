@@ -2,7 +2,7 @@
 
 import { getEnv } from './env'
 
-const { SIGN_UP_URL } = getEnv()
+const { SIGN_UP_URL, SIGN_IN_URL } = getEnv()
 
 const register = async ({
   email,
@@ -12,6 +12,16 @@ const register = async ({
   password: string
 }) => {
   return client(SIGN_UP_URL, { email, password, returnSecureToken: true })
+}
+
+const login = async ({
+  email,
+  password,
+}: {
+  email: string
+  password: string
+}) => {
+  return client(SIGN_IN_URL, { email, password, returnSecureToken: true })
 }
 
 const client = async <DataType>(
@@ -35,4 +45,4 @@ const client = async <DataType>(
   })
 }
 
-export { client, register }
+export { client, register, login }
