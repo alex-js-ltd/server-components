@@ -1,4 +1,4 @@
-import type { ReactElement, FormEvent } from 'react'
+import type { ReactElement } from 'react'
 
 import { cloneElement } from 'react'
 import { FormGroup, Input } from '@/comps/form-elements'
@@ -44,7 +44,7 @@ const Form = async ({
 
     console.log('props', email, password)
 
-    onSubmit({ email, password })
+    await onSubmit({ email, password })
   }
 
   return (

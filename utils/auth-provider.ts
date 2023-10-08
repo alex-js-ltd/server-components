@@ -13,7 +13,6 @@ const register = async ({
   email: string
   password: string
 }) => {
-  client(SIGN_UP_URL, { email, password, returnSecureToken: true })
   return client(SIGN_UP_URL, { email, password, returnSecureToken: true }).then(
     res => console.log(res),
   )
