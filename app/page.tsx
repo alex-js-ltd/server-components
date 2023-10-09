@@ -5,7 +5,7 @@ import type { SignUpResource, SignInResource } from '@clerk/types'
 
 import { cloneElement } from 'react'
 import { FormGroup, Input } from '@/comps/form-elements'
-import { LoginButton } from '@/comps/buttons'
+import { Button } from '@/comps/buttons'
 import { Modal } from '@/comps/modal'
 
 import { useSignUp, useSignIn } from '@clerk/nextjs'
@@ -17,7 +17,7 @@ const Home = () => {
       <div className="grid grid-cols-2 gap-3">
         <Modal>
           <Modal.OpenButton>
-            <LoginButton variant="primary">Login</LoginButton>
+            <Button variant="primary">Login</Button>
           </Modal.OpenButton>
           <Modal.Contents title="Login">
             <SignInForm />
@@ -26,7 +26,7 @@ const Home = () => {
 
         <Modal>
           <Modal.OpenButton>
-            <LoginButton variant="secondary">Register</LoginButton>
+            <Button variant="secondary">Register</Button>
           </Modal.OpenButton>
           <Modal.Contents title="Register">
             <SignUpForm />
@@ -115,7 +115,7 @@ const SignInForm = () => {
   return (
     <LoginForm<SignInResource>
       onSubmit={onSubmit}
-      submitButton={<LoginButton variant="primary">Login</LoginButton>}
+      submitButton={<Button variant="primary">Login</Button>}
     />
   )
 }
@@ -148,7 +148,7 @@ const SignUpForm = () => {
   return (
     <LoginForm<SignUpResource>
       onSubmit={onSubmit}
-      submitButton={<LoginButton variant="secondary">Register</LoginButton>}
+      submitButton={<Button variant="secondary">Register</Button>}
     />
   )
 }

@@ -5,7 +5,7 @@ const FormGroup = (props: JSX.IntrinsicElements['input']) => (
 const Input = (props: JSX.IntrinsicElements['input']) => (
   <input
     {...props}
-    className="border border-gray-300 bg-gray-200 p-2 rounded-md"
+    className="border border-gray-300 bg-gray-200 p-2 rounded-md w-full"
   />
 )
 

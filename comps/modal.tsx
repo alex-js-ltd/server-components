@@ -11,7 +11,7 @@ import {
 import { callAll } from '@/utils/call-all'
 
 import { Dialog } from '@headlessui/react'
-import { CircleButton, LoginButton } from './buttons'
+import { CircleButton } from './buttons'
 
 const ModalContext = createContext<
   { isOpen: boolean; setIsOpen: Function } | undefined

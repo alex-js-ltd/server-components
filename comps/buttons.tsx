@@ -7,7 +7,7 @@ const CircleButton = (props: JSX.IntrinsicElements['button']) => (
   />
 )
 
-const LoginButton = ({
+const Button = ({
   variant,
   ...rest
 }: JSX.IntrinsicElements['button'] & { variant: 'primary' | 'secondary' }) => (
@@ -20,4 +20,4 @@ const LoginButton = ({
   />
 )
 
-export { CircleButton, LoginButton }
+export { CircleButton, Button }
