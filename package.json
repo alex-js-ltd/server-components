@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.25.3",
     "@headlessui/react": "^1.7.17",
     "clsx": "^2.0.0",
     "iron-session": "^8.0.0-alpha.0",
@@ -18,6 +19,7 @@
     "session": "^0.1.0"
   },
   "devDependencies": {
+    "@clerk/types": "^3.54.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

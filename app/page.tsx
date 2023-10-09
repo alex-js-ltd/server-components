@@ -1,70 +1,77 @@
-import type { ReactElement } from 'react'
-import type { OnSubmit } from '@/types'
+'use client'
+
+import type { ReactElement, FormEvent } from 'react'
+import type { SignUpResource, SignInResource } from '@clerk/types'
 
 import { cloneElement } from 'react'
 import { FormGroup, Input } from '@/comps/form-elements'
 import { LoginButton } from '@/comps/buttons'
-import { LoginModal, RegisterModal } from '@/comps/modal'
-import { isOnSubmitData } from '@/utils/type-guards'
+import { Modal } from '@/comps/modal'
 
-import * as auth from '@/utils/auth-provider'
+import { useSignUp } from '@clerk/nextjs'
+import { useAsync } from '@/utils/use-async'
 
 const Home = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
       <div className="grid grid-cols-2 gap-3">
-        <LoginModal>
-          <Form
-            onSubmit={auth.login}
-            submitButton={<LoginButton variant="primary">Login</LoginButton>}
-          />
-        </LoginModal>
+        <Modal>
+          <Modal.OpenButton>
+            <LoginButton variant="primary">Login</LoginButton>
+          </Modal.OpenButton>
+          <Modal.Contents title="Login">
+            <div></div>
+          </Modal.Contents>
+        </Modal>
 
-        <RegisterModal>
-          <Form
-            onSubmit={auth.register}
-            submitButton={
-              <LoginButton variant="secondary">Register</LoginButton>
-            }
-          />
-        </RegisterModal>
+        <Modal>
+          <Modal.OpenButton>
+            <LoginButton variant="secondary">Register</LoginButton>
+          </Modal.OpenButton>
+          <Modal.Contents title="Register">
+            <SignUpForm />
+          </Modal.Contents>
+        </Modal>
       </div>
     </div>
   )
 }
 
-const Form = async ({
+type OnSubmit = (email: string, password: string) => Promise<SignUpResource>
+
+const Form = ({
   onSubmit,
   submitButton,
 }: {
   onSubmit: OnSubmit
   submitButton: ReactElement
 }) => {
-  const handleSubmit = async (data: FormData) => {
-    'use server'
+  const { run } = useAsync<SignUpResource | SignInResource>()
 
-    const onSubmitData = {
-      email: data.get('email'),
-      password: data.get('password'),
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const form = event.currentTarget
+
+    const formElements = form.elements as typeof form.elements & {
+      email: HTMLInputElement
+      password: HTMLInputElement
     }
 
-    if (isOnSubmitData(onSubmitData)) {
-      await onSubmit({ ...onSubmitData })
-    }
+    run(onSubmit(formElements.email.value, formElements.password.value))
   }
 
   return (
     <form
-      action={handleSubmit}
+      onSubmit={handleSubmit}
       className="flex flex-col items-stretch w-full max-w-xs"
     >
       <FormGroup>
         <label htmlFor="email">Email</label>
-        <Input id="email" name="email" />
+        <Input id="email" />
       </FormGroup>
       <FormGroup>
         <label htmlFor="password">Password</label>
-        <Input id="password" type="password" name="password" />
+        <Input id="password" type="password" />
       </FormGroup>
       <div>
         {cloneElement(
@@ -80,3 +87,30 @@ const Form = async ({
 }
 
 export default Home
+
+const SignUpForm = () => {
+  const { isLoaded, signUp, setActive } = useSignUp()
+
+  if (!signUp) return null
+
+  const onSubmit: OnSubmit = async (email, password) => {
+    return signUp
+      .create({
+        emailAddress: email,
+        password,
+      })
+      .then(res =>
+        res.prepareEmailAddressVerification({
+          strategy: 'email_link',
+          redirectUrl: 'http://localhost:3000/search',
+        }),
+      )
+  }
+
+  return (
+    <Form
+      onSubmit={onSubmit}
+      submitButton={<LoginButton variant="primary">Register</LoginButton>}
+    />
+  )
+}
