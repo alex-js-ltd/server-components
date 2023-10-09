@@ -20,7 +20,7 @@ const AuthenticatedApp = async ({ children }: { children: ReactNode }) => {
         </Button>
       </div>
 
-      <div className="mx-auto px-8 max-w-screen-lg w-full grid gap-4 grid-cols-1fr-3fr sm:grid-cols-1 sm:grid-rows-auto sm:w-full">
+      <div className="mx-auto px-8 max-w-screen-lg w-full grid gap-4 grid-cols-[1fr_3fr]">
         <div className="relative">
           <Nav />
         </div>

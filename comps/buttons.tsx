@@ -12,6 +12,7 @@ const Button = ({
   ...rest
 }: JSX.IntrinsicElements['button'] & { variant: 'primary' | 'secondary' }) => {
   const { className } = rest
+
   return (
     <button
       {...rest}
