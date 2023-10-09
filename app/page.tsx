@@ -89,7 +89,7 @@ const Form = ({
 export default Home
 
 const SignUpForm = () => {
-  const { isLoaded, signUp, setActive } = useSignUp()
+  const { signUp, setActive } = useSignUp()
 
   if (!signUp) return null
 
@@ -99,12 +99,18 @@ const SignUpForm = () => {
         emailAddress: email,
         password,
       })
-      .then(res =>
-        res.prepareEmailAddressVerification({
+      .then(async response => {
+        const completeSignUp = await response.prepareEmailAddressVerification({
           strategy: 'email_link',
           redirectUrl: 'http://localhost:3000/search',
-        }),
-      )
+        })
+
+        if (completeSignUp.status === 'complete') {
+          await setActive({ session: completeSignUp.createdSessionId })
+        }
+
+        return response
+      })
   }
 
   return (
