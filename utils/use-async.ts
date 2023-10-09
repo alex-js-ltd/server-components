@@ -85,7 +85,6 @@ function useAsync<DataType>() {
     dispatch({ type: 'pending', promise })
     promise.then(
       data => {
-        console.log('data', data)
         dispatch({ type: 'resolved', data, promise })
       },
       error => {

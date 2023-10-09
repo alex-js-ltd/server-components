@@ -1,6 +1,6 @@
 'use client'
 
-import type { ReactElement, FormEvent } from 'react'
+import type { ReactElement, SyntheticEvent } from 'react'
 import type { SignUpResource, SignInResource } from '@clerk/types'
 
 import { cloneElement } from 'react'
@@ -8,7 +8,7 @@ import { FormGroup, Input } from '@/comps/form-elements'
 import { LoginButton } from '@/comps/buttons'
 import { Modal } from '@/comps/modal'
 
-import { useSignUp } from '@clerk/nextjs'
+import { useSignUp, useSignIn } from '@clerk/nextjs'
 import { useAsync } from '@/utils/use-async'
 
 const Home = () => {
@@ -20,7 +20,7 @@ const Home = () => {
             <LoginButton variant="primary">Login</LoginButton>
           </Modal.OpenButton>
           <Modal.Contents title="Login">
-            <div></div>
+            <SignInForm />
           </Modal.Contents>
         </Modal>
 
@@ -37,27 +37,31 @@ const Home = () => {
   )
 }
 
-type OnSubmit = (email: string, password: string) => Promise<SignUpResource>
+type OnSubmit<DataType> = (email: string, password: string) => Promise<DataType>
 
-const Form = ({
+interface FormElements extends HTMLFormControlsCollection {
+  email: HTMLInputElement
+  password: HTMLInputElement
+}
+
+interface Form extends HTMLFormElement {
+  readonly elements: FormElements
+}
+
+const LoginForm = <DataType,>({
   onSubmit,
   submitButton,
 }: {
-  onSubmit: OnSubmit
+  onSubmit: OnSubmit<DataType>
   submitButton: ReactElement
 }) => {
-  const { run } = useAsync<SignUpResource | SignInResource>()
+  const { run } = useAsync<DataType>()
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: SyntheticEvent<Form>) => {
     event.preventDefault()
     const form = event.currentTarget
 
-    const formElements = form.elements as typeof form.elements & {
-      email: HTMLInputElement
-      password: HTMLInputElement
-    }
-
-    run(onSubmit(formElements.email.value, formElements.password.value))
+    run(onSubmit(form.email.value, form.password.value))
   }
 
   return (
@@ -88,12 +92,40 @@ const Form = ({
 
 export default Home
 
+const SignInForm = () => {
+  const { signIn, setActive } = useSignIn()
+
+  if (!signIn) return null
+
+  const onSubmit: OnSubmit<SignInResource> = async (email, password) => {
+    return signIn
+      .create({
+        identifier: email,
+        password,
+      })
+      .then(async response => {
+        if (response.status === 'complete') {
+          await setActive({ session: response.createdSessionId })
+        }
+
+        return response
+      })
+  }
+
+  return (
+    <LoginForm<SignInResource>
+      onSubmit={onSubmit}
+      submitButton={<LoginButton variant="primary">Login</LoginButton>}
+    />
+  )
+}
+
 const SignUpForm = () => {
   const { signUp, setActive } = useSignUp()
 
   if (!signUp) return null
 
-  const onSubmit: OnSubmit = async (email, password) => {
+  const onSubmit: OnSubmit<SignUpResource> = async (email, password) => {
     return signUp
       .create({
         emailAddress: email,
@@ -114,9 +146,9 @@ const SignUpForm = () => {
   }
 
   return (
-    <Form
+    <LoginForm<SignUpResource>
       onSubmit={onSubmit}
-      submitButton={<LoginButton variant="primary">Register</LoginButton>}
+      submitButton={<LoginButton variant="secondary">Register</LoginButton>}
     />
   )
 }
