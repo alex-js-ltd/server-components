@@ -6,6 +6,8 @@ export const GET = async (request: NextRequest) => {
   const searchParams = request.nextUrl.searchParams
   const query = searchParams.get('query')
 
+  console.log(query)
+
   const books = await prisma.book.findMany({
     where: {
       title: {
@@ -14,5 +16,7 @@ export const GET = async (request: NextRequest) => {
       },
     },
   })
+
+  console.log('books', books)
   return Response.json({ message: books })
 }

@@ -6,6 +6,15 @@ import { prisma } from '@/utils/db'
 const DisoverBooksScreen = () => {
   const handleSearch = async (data: FormData) => {
     'use server'
+
+    const query = data.get('query')
+
+    console.log('query', query)
+
+    const response = await fetch(
+      `http://localhost:3000/api/books?query=${query}`,
+    )
+    console.log(response)
   }
 
   return (
@@ -15,6 +24,7 @@ const DisoverBooksScreen = () => {
           placeholder="Search books..."
           id="search"
           type="search"
+          name="query"
           className="w-full"
         />
 
@@ -26,17 +36,20 @@ const DisoverBooksScreen = () => {
         </label>
       </form>
 
-      <BookList>
-        <div></div>
-      </BookList>
+      <BookList />
     </div>
   )
 }
 
 export default DisoverBooksScreen
 
-const BookList = ({ children }: { children: ReactNode }) => {
+const BookList = async () => {
+  const books = await prisma.book.findMany()
   return (
-    <ul className="list-none p-0 grid grid-rows-auto-100 gap-4">{children}</ul>
+    <ul className="list-none p-0 grid grid-rows-auto-100 gap-4">
+      {books.map(book => (
+        <li key={book.id}>{book.title}</li>
+      ))}
+    </ul>
   )
 }
