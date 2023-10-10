@@ -6,7 +6,7 @@ import { SignOutButton } from '@/comps/buttons'
 import { currentUser } from '@clerk/nextjs'
 import Link from 'next/link'
 
-const AuthenticatedApp = async ({ children }: { children: ReactNode }) => {
+const AuthenticatedLayout = async ({ children }: { children: ReactNode }) => {
   const user: User | null = await currentUser()
 
   const email = user?.emailAddresses[0]?.emailAddress
@@ -46,4 +46,4 @@ const Nav = () => (
   </nav>
 )
 
-export default AuthenticatedApp
+export default AuthenticatedLayout
