@@ -9,12 +9,12 @@ import Link from 'next/link'
 const AuthenticatedApp = async ({ children }: { children: ReactNode }) => {
   const user: User | null = await currentUser()
 
-  const username = user?.emailAddresses[0]?.emailAddress
+  const email = user?.emailAddresses[0]?.emailAddress
 
   return (
     <Fragment>
       <div className="flex items-center absolute top-10 right-10">
-        {username}
+        {email}
         <Button variant="secondary" className="ml-10">
           Logout
         </Button>
