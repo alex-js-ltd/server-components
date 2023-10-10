@@ -10,9 +10,7 @@ import { Modal } from '@/comps/modal'
 
 import { useSignUp, useSignIn } from '@clerk/nextjs'
 import { useAsync } from '@/utils/use-async'
-import { getEnv } from '@/utils/env'
-
-const { NODE_ENV } = getEnv()
+import { getBaseURL } from '@/utils/get-base-url'
 
 const Home = () => {
   return (
@@ -135,14 +133,9 @@ const SignUpForm = () => {
         password,
       })
       .then(async response => {
-        const redirectUrl =
-          NODE_ENV !== 'production'
-            ? 'http://localhost:3000/discover'
-            : 'https://server-components-eight.vercel.app/discover'
-
         const completeSignUp = await response.prepareEmailAddressVerification({
           strategy: 'email_link',
-          redirectUrl,
+          redirectUrl: `${getBaseURL()}/discover`,
         })
 
         if (completeSignUp.status === 'complete') {

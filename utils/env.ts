@@ -4,6 +4,7 @@ const getEnv = () => {
     CLERK_WEBHOOK_SECRET_PRODUCTION:
       process.env.CLERK_WEBHOOK_SECRET_PRODUCTION ?? '',
     NODE_ENV: process.env.NODE_ENV,
+    VERCEL_URL: process.env.VERCEL_URL,
   }
 }
 
