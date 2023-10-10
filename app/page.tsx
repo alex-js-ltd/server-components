@@ -1,17 +1,18 @@
-import { Fragment } from 'react'
+import { lazy, Suspense } from 'react'
 import { SignedIn, SignedOut } from '@clerk/nextjs'
-import UnAuthenticatedApp from './unauthenticated-app'
-import AuthenticatedApp from './authenticated-app'
+
+const AuthenticatedApp = lazy(() => import('./authenticated-app'))
+const UnauthenticatedApp = lazy(() => import('./unauthenticated-app'))
 
 const Home = () => (
-  <Fragment>
+  <Suspense>
     <SignedIn>
       <AuthenticatedApp />
     </SignedIn>
     <SignedOut>
-      <UnAuthenticatedApp />
+      <UnauthenticatedApp />
     </SignedOut>
-  </Fragment>
+  </Suspense>
 )
 
 export default Home
