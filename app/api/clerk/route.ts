@@ -1,10 +1,17 @@
 import { WebhookEvent } from '@clerk/nextjs/server'
 import { headers } from 'next/headers'
 import { Webhook } from 'svix'
-
 import { prisma } from '@/utils/db'
 
-const webhookSecret = process.env.CLERK_WEBHOOK_SECRET || ``
+import { getEnv } from '@/utils/env'
+
+const { NODE_ENV, CLERK_WEBHOOK_SECRET_DEV, CLERK_WEBHOOK_SECRET_PRODUCTION } =
+  getEnv()
+
+const webhookSecret =
+  NODE_ENV !== 'production'
+    ? CLERK_WEBHOOK_SECRET_DEV
+    : CLERK_WEBHOOK_SECRET_PRODUCTION
 
 const validateRequest = async (request: Request) => {
   const payloadString = await request.text()
