@@ -84,7 +84,7 @@ const ModalContents = ({
     <ModalContentsBase>
       <div className="flex justify-end w-full">
         <ModalDismissButton>
-          <CircleButton onClick={() => console.log('hello')}>
+          <CircleButton>
             <span aria-hidden>×</span>
           </CircleButton>
         </ModalDismissButton>

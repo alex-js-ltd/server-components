@@ -2,10 +2,9 @@ import type { ReactNode } from 'react'
 import type { User } from '@clerk/nextjs/api'
 
 import { Fragment } from 'react'
-import { Button } from '@/comps/buttons'
+import { SignOutButton } from '@/comps/buttons'
 import { currentUser } from '@clerk/nextjs'
 import Link from 'next/link'
-import SignOutButton from './sign-out-button'
 
 const AuthenticatedApp = async ({ children }: { children: ReactNode }) => {
   const user: User | null = await currentUser()

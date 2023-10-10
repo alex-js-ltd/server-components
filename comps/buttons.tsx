@@ -1,4 +1,8 @@
+'use client'
+
 import { clsx } from 'clsx'
+import { useClerk } from '@clerk/clerk-react'
+import { useRouter } from 'next/navigation'
 
 const CircleButton = (props: JSX.IntrinsicElements['button']) => (
   <button
@@ -24,4 +28,18 @@ const Button = ({
   )
 }
 
-export { CircleButton, Button }
+const SignOutButton = () => {
+  const { signOut } = useClerk()
+  const router = useRouter()
+
+  const onClick = () =>
+    signOut().then(() => router.push('/', { scroll: false }))
+
+  return (
+    <Button variant="secondary" onClick={onClick} className="ml-10">
+      Sign out
+    </Button>
+  )
+}
+
+export { CircleButton, Button, SignOutButton }
