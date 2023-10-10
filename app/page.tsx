@@ -9,6 +9,7 @@ import { Button } from '@/comps/buttons'
 import { Modal } from '@/comps/modal'
 
 import { useSignUp, useSignIn } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 import { useAsync } from '@/utils/use-async'
 import { getEnv } from '@/utils/env'
 
@@ -99,6 +100,7 @@ export default Home
 
 const SignInForm = () => {
   const { signIn, setActive } = useSignIn()
+  const router = useRouter()
 
   if (!signIn) return null
 
@@ -111,6 +113,7 @@ const SignInForm = () => {
       .then(async response => {
         if (response.status === 'complete') {
           await setActive({ session: response.createdSessionId })
+          router.push('/discover')
         }
 
         return response
@@ -127,6 +130,7 @@ const SignInForm = () => {
 
 const SignUpForm = () => {
   const { signUp, setActive } = useSignUp()
+  const router = useRouter()
 
   if (!signUp) return null
 
@@ -144,6 +148,7 @@ const SignUpForm = () => {
 
         if (completeSignUp.status === 'complete') {
           await setActive({ session: completeSignUp.createdSessionId })
+          router.push('/discover')
         }
 
         return response

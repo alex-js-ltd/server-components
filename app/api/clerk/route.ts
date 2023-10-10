@@ -40,7 +40,3 @@ export const POST = async (request: Request) => {
 
   return Response.json({ message: 'cannot create user' })
 }
-
-export const GET = async () => {
-  return Response.json({ message: 'Hello World!' })
-}
