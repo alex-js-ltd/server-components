@@ -1,8 +1,6 @@
 const getEnv = () => {
   return {
-    CLERK_WEBHOOK_SECRET_DEV: process.env.CLERK_WEBHOOK_SECRET_DEV as string,
-    CLERK_WEBHOOK_SECRET_PRODUCTION: process.env
-      .CLERK_WEBHOOK_SECRET_PRODUCTION as string,
+    CLERK_WEBHOOK_SECRET: process.env.CLERK_WEBHOOK_SECRET,
     NODE_ENV: process.env.NODE_ENV,
     BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
   }

@@ -5,13 +5,9 @@ import { prisma } from '@/utils/db'
 
 import { getEnv } from '@/utils/env'
 
-const { NODE_ENV, CLERK_WEBHOOK_SECRET_DEV, CLERK_WEBHOOK_SECRET_PRODUCTION } =
-  getEnv()
+const { CLERK_WEBHOOK_SECRET } = getEnv()
 
-const webhookSecret =
-  NODE_ENV !== 'production'
-    ? CLERK_WEBHOOK_SECRET_DEV
-    : CLERK_WEBHOOK_SECRET_PRODUCTION
+const webhookSecret = CLERK_WEBHOOK_SECRET as string
 
 const validateRequest = async (request: Request) => {
   const payloadString = await request.text()
