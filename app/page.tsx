@@ -14,11 +14,6 @@ import { getEnv } from '@/utils/env'
 
 const { NODE_ENV } = getEnv()
 
-const redirectUrl =
-  NODE_ENV !== 'production'
-    ? 'http://localhost:3000/discover'
-    : 'https://server-components-eight.vercel.app/discover'
-
 const Home = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
@@ -140,6 +135,11 @@ const SignUpForm = () => {
         password,
       })
       .then(async response => {
+        const redirectUrl =
+          NODE_ENV !== 'production'
+            ? 'http://localhost:3000/discover'
+            : 'https://server-components-eight.vercel.app/discover'
+
         const completeSignUp = await response.prepareEmailAddressVerification({
           strategy: 'email_link',
           redirectUrl,
