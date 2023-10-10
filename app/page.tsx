@@ -10,7 +10,9 @@ import { Modal } from '@/comps/modal'
 
 import { useSignUp, useSignIn } from '@clerk/nextjs'
 import { useAsync } from '@/utils/use-async'
-import { getBaseURL } from '@/utils/get-base-url'
+import { getEnv } from '@/utils/env'
+
+const { BASE_URL } = getEnv()
 
 const Home = () => {
   return (
@@ -135,7 +137,7 @@ const SignUpForm = () => {
       .then(async response => {
         const completeSignUp = await response.prepareEmailAddressVerification({
           strategy: 'email_link',
-          redirectUrl: `${getBaseURL()}/discover`,
+          redirectUrl: `${BASE_URL}/discover`,
         })
 
         if (completeSignUp.status === 'complete') {
