@@ -14,6 +14,8 @@ import { getEnv } from '@/utils/env'
 
 const { BASE_URL } = getEnv()
 
+console.log('BASE_URL', BASE_URL)
+
 const Home = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
