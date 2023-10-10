@@ -32,8 +32,10 @@ const SignOutButton = () => {
   const { signOut } = useClerk()
   const router = useRouter()
 
-  const onClick = () =>
-    signOut().then(() => router.push('/', { scroll: false }))
+  const onClick = async () => {
+    await signOut()
+    router.push('/')
+  }
 
   return (
     <Button variant="secondary" onClick={onClick} className="ml-10">
