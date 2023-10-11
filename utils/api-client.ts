@@ -1,16 +1,15 @@
+import { useCallback } from 'react'
+import { useAuth } from '@clerk/nextjs'
 import { getEnv } from './env'
 
 const { BASE_URL } = getEnv()
 
-type Config<DataType> = {
-  data: DataType
+type Config = {
+  data: { [key: string]: string }
   token: string
 }
 
-const client = async <DataType>(
-  endpoint: string,
-  { data, token }: Config<DataType>,
-) => {
+const client = async (endpoint: string, { data, token }: Config) => {
   const config: RequestInit = {
     method: data ? 'POST' : 'GET',
     body: data ? JSON.stringify(data) : undefined,
@@ -32,4 +31,14 @@ const client = async <DataType>(
     })
 }
 
-export { client }
+const useClient = () => {
+  const { getToken } = useAuth()
+
+  return useCallback(async (endpoint: string, config: Config) => {
+    const token = (await getToken()) ?? ''
+
+    return client(endpoint, { ...config, token })
+  }, [])
+}
+
+export { useClient }
