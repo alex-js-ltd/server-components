@@ -5,7 +5,7 @@ import { Fragment } from 'react'
 import { SignOutButton } from '@/comps/buttons'
 import Link from 'next/link'
 
-const AuthenticatedLayout = async ({
+const AuthenticatedLayout = ({
   user,
   children,
 }: {
@@ -43,7 +43,7 @@ const Nav = () => (
         <Link href="/finished">Finished Books</Link>
       </li>
       <li>
-        <Link href="/discover">Discover</Link>
+        <Link href="/">Discover</Link>
       </li>
     </ul>
   </nav>
