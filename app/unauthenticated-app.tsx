@@ -40,8 +40,6 @@ const UnauthenticatedApp = () => {
   )
 }
 
-type OnSubmit<DataType> = (email: string, password: string) => Promise<DataType>
-
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement
   password: HTMLInputElement
@@ -51,14 +49,16 @@ interface Form extends HTMLFormElement {
   readonly elements: FormElements
 }
 
-const LoginForm = <DataType,>({
-  onSubmit,
-  submitButton,
-}: {
-  onSubmit: OnSubmit<DataType>
+interface LoginFormProps {
+  onSubmit(
+    email: string,
+    password: string,
+  ): Promise<SignUpResource | SignInResource>
   submitButton: ReactElement
-}) => {
-  const { run } = useAsync<DataType>()
+}
+
+const LoginForm = ({ onSubmit, submitButton }: LoginFormProps) => {
+  const { run } = useAsync<SignUpResource | SignInResource>()
 
   const handleSubmit = (event: SyntheticEvent<Form>) => {
     event.preventDefault()
@@ -98,7 +98,7 @@ const SignInForm = () => {
 
   if (!signIn) return null
 
-  const onSubmit: OnSubmit<SignInResource> = async (email, password) => {
+  const onSubmit = async (email: string, password: string) => {
     return signIn
       .create({
         identifier: email,
@@ -114,7 +114,7 @@ const SignInForm = () => {
   }
 
   return (
-    <LoginForm<SignInResource>
+    <LoginForm
       onSubmit={onSubmit}
       submitButton={<Button variant="primary">Login</Button>}
     />
@@ -126,7 +126,7 @@ const SignUpForm = () => {
 
   if (!signUp) return null
 
-  const onSubmit: OnSubmit<SignUpResource> = async (email, password) => {
+  const onSubmit = async (email: string, password: string) => {
     return signUp
       .create({
         emailAddress: email,
@@ -147,7 +147,7 @@ const SignUpForm = () => {
   }
 
   return (
-    <LoginForm<SignUpResource>
+    <LoginForm
       onSubmit={onSubmit}
       submitButton={<Button variant="secondary">Register</Button>}
     />
