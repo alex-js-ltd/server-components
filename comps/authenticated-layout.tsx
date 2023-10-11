@@ -44,7 +44,7 @@ const Nav = () => {
           <Link href="/finished">Finished Books</Link>
         </li>
         <li>
-          <Link href="/">Discover</Link>
+          <Link href="/ ">Discover</Link>
         </li>
       </ul>
     </nav>
