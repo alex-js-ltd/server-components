@@ -5,13 +5,10 @@ import { Fragment } from 'react'
 import { SignOutButton } from '@/comps/buttons'
 import Link from 'next/link'
 
-const AuthenticatedLayout = ({
-  user,
-  children,
-}: {
-  user: User
-  children: ReactNode
-}) => {
+import { currentUser } from '@clerk/nextjs'
+
+const AuthenticatedLayout = async ({ children }: { children: ReactNode }) => {
+  const user: User | null = await currentUser()
   const email = user?.emailAddresses[0]?.emailAddress
 
   return (
