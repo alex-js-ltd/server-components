@@ -7,14 +7,12 @@ const TooltipButton = ({
   action,
   book,
 }: {
-  action: (data: FormData) => Promise<void>
+  action: (book: Book, data: FormData) => Promise<void>
   book: Book
 }) => {
+  const actionWithArgument = action.bind(null, book)
   return (
-    <CircleForm action={action}>
-      {Object.entries(book).map(([key, value]) => (
-        <input key={key} name={key} defaultValue={value} />
-      ))}
+    <CircleForm action={actionWithArgument}>
       <button type="submit">xxxxxxxxx</button>
     </CircleForm>
   )
