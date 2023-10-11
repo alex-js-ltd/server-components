@@ -14,9 +14,7 @@ import { getEnv } from '@/utils/env'
 
 const { BASE_URL } = getEnv()
 
-console.log('BASE_URL', BASE_URL)
-
-const UnAuthenticatedApp = () => {
+const UnauthenticatedApp = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
       <div className="grid grid-cols-2 gap-3">
@@ -156,4 +154,4 @@ const SignUpForm = () => {
   )
 }
 
-export default UnAuthenticatedApp
+export default UnauthenticatedApp

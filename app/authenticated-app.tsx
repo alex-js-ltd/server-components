@@ -2,8 +2,6 @@ import React from 'react'
 import { Input } from '@/comps/form-elements'
 import { prisma } from '@/utils/db'
 
-import AuthenticatedLayout from '@/comps/authenticated-layout'
-
 const AuthenticatedApp = () => {
   const handleSearch = async (data: FormData) => {
     'use server'
