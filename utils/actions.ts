@@ -5,24 +5,35 @@ import { auth } from '@clerk/nextjs'
 import type { Book } from '@prisma/client'
 
 const getBooks = async (startsWith: string) => {
-  const books = await prisma.book.findMany({
-    where: {
-      title: {
-        startsWith,
-        mode: 'insensitive',
+  let books
+  try {
+    books = await prisma.book.findMany({
+      where: {
+        title: {
+          startsWith,
+          mode: 'insensitive',
+        },
       },
-    },
-  })
+    })
+  } catch (error) {
+    console.log(error)
+  }
 
   return books
 }
 
 const getBook = async (id: string) => {
-  const book = await prisma.book.findUnique({
-    where: {
-      id,
-    },
-  })
+  let book
+
+  try {
+    book = await prisma.book.findUnique({
+      where: {
+        id,
+      },
+    })
+  } catch (error) {
+    console.log(error)
+  }
 
   return book
 }
@@ -38,31 +49,37 @@ const createListItem = async (book: Book) => {
 
   const { id: bookId, ...rest } = book
 
-  await prisma.listItem.create({
-    data: {
-      ...rest,
-      User: {
-        connect: { id: userId },
+  try {
+    await prisma.listItem.create({
+      data: {
+        ...rest,
+        User: {
+          connect: { id: userId },
+        },
+        Book: {
+          connect: { id: bookId },
+        },
       },
-      Book: {
-        connect: { id: bookId },
-      },
-    },
-  })
+    })
+  } catch (error) {
+    console.log(error)
+  }
+
   revalidatePath(`/`)
   revalidatePath(`/book/${book.id}`)
 }
 
 const removeListItem = async (book: Book) => {
-  const listItem = await getListItem(book.id)
+  try {
+    await prisma.listItem.delete({
+      where: {
+        id: book.id,
+      },
+    })
+  } catch (error) {
+    console.log(error)
+  }
 
-  if (!listItem) return
-
-  await prisma.listItem.delete({
-    where: {
-      id: book.id,
-    },
-  })
   revalidatePath(`/`)
   revalidatePath(`/book/${book.id}`)
 }
@@ -72,14 +89,17 @@ const getListItems = async () => {
 
   if (!userId) return null
 
-  const user = await prisma.user.findUnique({
-    where: {
-      id: userId,
-    },
-    include: {
-      listItems: true,
-    },
-  })
+  let user
+  try {
+    user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      include: {
+        listItems: true,
+      },
+    })
+  } catch (error) {}
 
   return user?.listItems ?? null
 }
