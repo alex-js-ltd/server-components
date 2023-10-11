@@ -6,12 +6,13 @@ import { SignOutButton } from '@/comps/buttons'
 import Link from 'next/link'
 import { currentUser } from '@clerk/nextjs'
 
-export default async function AuthenticatedLayout({
+const AuthenticatedLayout = ({
+  user,
   children,
 }: {
+  user: User
   children: ReactNode
-}) {
-  const user: User | null = await currentUser()
+}) => {
   const email = user?.emailAddresses[0]?.emailAddress
 
   return (
@@ -33,7 +34,7 @@ export default async function AuthenticatedLayout({
   )
 }
 
-function Nav() {
+const Nav = () => {
   return (
     <nav className="sticky top-4 px-6 py-4 border border-gray-100 rounded">
       <ul className="list-none p-0">
@@ -50,3 +51,5 @@ function Nav() {
     </nav>
   )
 }
+
+export default AuthenticatedLayout

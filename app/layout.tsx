@@ -1,25 +1,30 @@
 import './globals.css'
 import type { ReactNode } from 'react'
-import { ClerkProvider } from '@clerk/nextjs'
+import type { User } from '@clerk/nextjs/api'
+import { ClerkProvider, currentUser } from '@clerk/nextjs'
 import AuthenticatedLayout from '@/comps/authenticated-layout'
-
-import { SignedIn, SignedOut } from '@clerk/nextjs'
 
 export const metadata = {
   title: 'Next.js 13 with Clerk',
 }
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode
+}) {
+  const user: User | null = await currentUser()
   return (
-    <html lang="en">
-      <ClerkProvider>
+    <ClerkProvider>
+      <html lang="en">
         <body>
-          <SignedIn>
-            <AuthenticatedLayout>{children}</AuthenticatedLayout>
-          </SignedIn>
-          <SignedOut>{children}</SignedOut>
+          {user ? (
+            <AuthenticatedLayout user={user}>{children}</AuthenticatedLayout>
+          ) : (
+            children
+          )}
         </body>
-      </ClerkProvider>
-    </html>
+      </html>
+    </ClerkProvider>
   )
 }

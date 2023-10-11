@@ -1,18 +1,13 @@
+import type { User } from '@clerk/nextjs/api'
 import { lazy, Suspense } from 'react'
-import { SignedIn, SignedOut } from '@clerk/nextjs'
+import { currentUser } from '@clerk/nextjs'
 
 const AuthenticatedApp = lazy(() => import('./authenticated-app'))
 const UnauthenticatedApp = lazy(() => import('./unauthenticated-app'))
 
-export default function Home() {
-  return (
-    <Suspense>
-      <SignedIn>
-        <AuthenticatedApp />
-      </SignedIn>
-      <SignedOut>
-        <UnauthenticatedApp />
-      </SignedOut>
-    </Suspense>
-  )
+const Home = async () => {
+  const user: User | null = await currentUser()
+  return <>{user ? <AuthenticatedApp /> : <UnauthenticatedApp />}</>
 }
+
+export default Home
