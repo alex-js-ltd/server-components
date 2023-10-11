@@ -3,6 +3,8 @@
 import { clsx } from 'clsx'
 import { useClerk } from '@clerk/clerk-react'
 import { useRouter } from 'next/navigation'
+// @ts-expect-error
+import { experimental_useFormStatus as useFormStatus } from 'react-dom'
 
 const CircleButton = (props: JSX.IntrinsicElements['button']) => (
   <button
@@ -44,4 +46,14 @@ const SignOutButton = () => {
   )
 }
 
-export { CircleButton, Button, SignOutButton }
+const SubmitButton = () => {
+  const { pending } = useFormStatus()
+
+  return (
+    <CircleButton type="submit" aria-disabled={pending}>
+      {pending ? '...loading' : 'add'}
+    </CircleButton>
+  )
+}
+
+export { CircleButton, Button, SignOutButton, SubmitButton }

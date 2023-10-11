@@ -1,6 +1,6 @@
 import type { Book } from '@prisma/client'
 import { Fragment } from 'react'
-import { CircleForm } from './form-elements'
+import { SubmitButton } from './buttons'
 import * as actions from '@/utils/actions'
 
 const TooltipButton = ({
@@ -12,9 +12,9 @@ const TooltipButton = ({
 }) => {
   const actionWithArgument = action.bind(null, book)
   return (
-    <CircleForm action={actionWithArgument}>
-      <button type="submit">xxxxxxxxx</button>
-    </CircleForm>
+    <form action={actionWithArgument}>
+      <SubmitButton />
+    </form>
   )
 }
 
