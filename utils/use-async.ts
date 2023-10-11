@@ -1,5 +1,5 @@
-import { useReducer, useCallback } from 'react'
 import type { Reducer } from 'react'
+import { useReducer, useCallback } from 'react'
 
 type AsyncState<DataType> =
   | {
@@ -33,10 +33,10 @@ type AsyncAction<DataType> =
   | { type: 'resolved'; data: DataType; promise: Promise<DataType> }
   | { type: 'rejected'; error: Error; promise: Promise<DataType> }
 
-function asyncReducer<DataType>(
+const asyncReducer = <DataType>(
   state: AsyncState<DataType>,
   action: AsyncAction<DataType>,
-): AsyncState<DataType> {
+): AsyncState<DataType> => {
   switch (action.type) {
     case 'pending': {
       return {
@@ -70,7 +70,7 @@ function asyncReducer<DataType>(
   }
 }
 
-function useAsync<DataType>() {
+const useAsync = <DataType>() => {
   const [state, dispatch] = useReducer<
     Reducer<AsyncState<DataType>, AsyncAction<DataType>>
   >(asyncReducer, {
@@ -98,11 +98,6 @@ function useAsync<DataType>() {
     status,
     data,
     run,
-
-    isIdle: status === 'idle',
-    isLoading: status === 'pending',
-    isError: status === 'rejected',
-    isSuccess: status === 'resolved',
   }
 }
 
