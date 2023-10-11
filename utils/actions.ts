@@ -2,6 +2,7 @@
 
 import { prisma } from '@/utils/db'
 import { auth } from '@clerk/nextjs'
+import { Book } from '@prisma/client'
 
 const getBooks = async (startsWith: string) => {
   const books = await prisma.book.findMany({
@@ -24,6 +25,26 @@ const getBook = async (id: string) => {
   })
 
   return book
+}
+
+const createListItem = async (book: Book) => {
+  const { userId }: { userId: string | null } = auth()
+
+  if (!userId) return
+
+  const { id: bookId, ...rest } = book
+
+  await prisma.listItem.create({
+    data: {
+      ...rest,
+      User: {
+        connect: { id: userId },
+      },
+      Book: {
+        connect: { id: bookId },
+      },
+    },
+  })
 }
 
 const getListItems = async () => {
@@ -49,4 +70,4 @@ const getListItem = async (bookId: string) => {
   return listItems?.find(li => li.bookId === bookId) ?? null
 }
 
-export { getBooks, getBook, getListItems, getListItem }
+export { getBooks, getBook, createListItem, getListItems, getListItem }
