@@ -1,5 +1,6 @@
 'use server'
 
+import { revalidatePath } from 'next/cache'
 import { prisma } from '@/utils/db'
 
 const getBooks = async (startsWith: string) => {
@@ -11,6 +12,8 @@ const getBooks = async (startsWith: string) => {
       },
     },
   })
+
+  revalidatePath(`/?query=${startsWith}`)
 
   return books
 }

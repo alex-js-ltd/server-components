@@ -1,11 +1,12 @@
 import { getBook } from '@/utils/actions'
+import invariant from 'tiny-invariant'
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const { id } = params
 
   const book = await getBook(id)
 
-  if (!book) return null
+  invariant(book, 'Missing book')
 
   const { coverImageUrl, title, author, publisher, synopsis } = book
 
