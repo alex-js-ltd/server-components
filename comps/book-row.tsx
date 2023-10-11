@@ -8,7 +8,7 @@ const BookRow = ({ book }: { book: Book }) => {
 
   return (
     <div className="flex items-center relative">
-      <a
+      <Link
         aria-labelledby={id}
         href={`/book/${book.id}`}
         className="min-h-96 flex-1 grid grid-cols-[140px_1fr] gap-5 p-5 border border-gray-200 text-text rounded-md transition-transform hover:no-underline hover:shadow-md hover:text-inherit"
@@ -38,7 +38,7 @@ const BookRow = ({ book }: { book: Book }) => {
             {book.synopsis.substring(0, 500)}...
           </small>
         </div>
-      </a>
+      </Link>
       <div className="ml-20 absolute right-[-20px] text-gray-80 flex flex-col justify-between h-full"></div>
     </div>
   )
