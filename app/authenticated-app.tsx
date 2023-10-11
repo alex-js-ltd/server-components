@@ -1,7 +1,7 @@
 import React from 'react'
 import { Input } from '@/comps/form-elements'
-import { prisma } from '@/utils/db'
 import BookRow from '@/comps/book-row'
+import { getBooks } from '@/utils/actions'
 
 const AuthenticatedApp = ({
   searchParams,
@@ -35,14 +35,9 @@ const BookList = async ({
 }) => {
   const { query } = searchParams
 
-  const books = await prisma.book.findMany({
-    where: {
-      title: {
-        startsWith: query?.toString(),
-        mode: 'insensitive',
-      },
-    },
-  })
+  const queryString = query?.toString() ?? ''
+
+  const books = await getBooks(queryString)
   return (
     <ul className="list-none p-0 grid grid-rows-auto-100 gap-4 mt-5">
       {books.map(book => (

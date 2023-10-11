@@ -1,13 +1,9 @@
-import { prisma } from '@/utils/db'
+import { getBook } from '@/utils/actions'
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const { id } = params
 
-  const book = await prisma.book.findUnique({
-    where: {
-      id,
-    },
-  })
+  const book = await getBook(id)
 
   if (!book) return null
 
