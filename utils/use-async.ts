@@ -1,5 +1,5 @@
-import type { Reducer } from 'react'
-import { useReducer, useCallback } from 'react'
+import type { Reducer, Dispatch } from 'react'
+import { useReducer, useCallback, useLayoutEffect, useRef } from 'react'
 
 type AsyncState<DataType> =
   | {
@@ -81,14 +81,16 @@ const useAsync = <DataType>() => {
 
   const { data, error, status } = state
 
+  const safeSetState = useSafeDispatch(dispatch)
+
   const run = useCallback((promise: Promise<DataType>) => {
     dispatch({ type: 'pending', promise })
     promise.then(
       data => {
-        dispatch({ type: 'resolved', data, promise })
+        safeSetState({ type: 'resolved', data, promise })
       },
       error => {
-        dispatch({ type: 'rejected', error, promise })
+        safeSetState({ type: 'rejected', error, promise })
       },
     )
   }, [])
@@ -102,3 +104,23 @@ const useAsync = <DataType>() => {
 }
 
 export { useAsync }
+
+const useSafeDispatch = <DataType>(
+  dispatch: Dispatch<AsyncAction<DataType>>,
+) => {
+  const mounted = useRef(false)
+
+  useLayoutEffect(() => {
+    mounted.current = true
+
+    return () => {
+      mounted.current = false
+    }
+  }, [])
+
+  return useCallback(
+    (args: AsyncAction<DataType>) =>
+      mounted.current ? dispatch(args) : void 0,
+    [dispatch],
+  )
+}
