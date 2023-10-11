@@ -1,5 +1,5 @@
 import type { User } from '@clerk/nextjs/api'
-import { lazy, Suspense } from 'react'
+import { lazy } from 'react'
 import { currentUser } from '@clerk/nextjs'
 
 const AuthenticatedApp = lazy(() => import('./authenticated-app'))
