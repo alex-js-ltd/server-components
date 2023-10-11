@@ -54,7 +54,7 @@ const createListItem = async (book: Book) => {
 }
 
 const removeListItem = async (book: Book) => {
-  const remove = await prisma.listItem.delete({
+  await prisma.listItem.delete({
     where: {
       id: book.id,
     },
