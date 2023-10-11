@@ -35,9 +35,10 @@ const BookList = async ({
 }) => {
   const { query } = searchParams
 
-  const queryString = query?.toString() ?? ''
+  const startsWith = query?.toString() ?? ''
 
-  const books = await getBooks(queryString)
+  const books = await getBooks(startsWith)
+
   return (
     <ul className="list-none p-0 grid grid-rows-auto-100 gap-4 mt-5">
       {books.map(book => (

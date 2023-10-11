@@ -2,11 +2,11 @@
 
 import { prisma } from '@/utils/db'
 
-const getBooks = async (query: string) => {
+const getBooks = async (startsWith: string) => {
   const books = await prisma.book.findMany({
     where: {
       title: {
-        startsWith: query,
+        startsWith,
         mode: 'insensitive',
       },
     },
