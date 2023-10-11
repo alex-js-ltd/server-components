@@ -40,7 +40,7 @@ const BookRow = ({ book }: { book: Book }) => {
           </small>
         </div>
       </Link>
-      <div className="ml-20 absolute right-[-20px] text-gray-80 flex flex-col justify-between h-full">
+      <div className="ml-20 absolute right-[-20px] text-gray-80 flex flex-col justify-center h-full">
         <StatusButtons book={book} />
       </div>
     </div>

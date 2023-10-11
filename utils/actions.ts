@@ -27,10 +27,14 @@ const getBook = async (id: string) => {
   return book
 }
 
-const createListItem = async (book: Book, _data: FormData) => {
+const createListItem = async (book: Book) => {
   const { userId }: { userId: string | null } = auth()
 
   if (!userId) return
+
+  const listItem = await getListItem(book.id)
+
+  if (listItem) return
 
   const { id: bookId, ...rest } = book
 

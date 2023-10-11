@@ -1,5 +1,5 @@
 'use client'
-
+import type { ReactElement } from 'react'
 import { clsx } from 'clsx'
 import { useClerk } from '@clerk/clerk-react'
 import { useRouter } from 'next/navigation'
@@ -9,7 +9,7 @@ import { experimental_useFormStatus as useFormStatus } from 'react-dom'
 const CircleButton = (props: JSX.IntrinsicElements['button']) => (
   <button
     {...props}
-    className="rounded-full w-10 h-10 leading-10 flex items-center justify-center bg-base text-text border border-gray-10 cursor-pointer"
+    className="rounded-full w-10 h-10 leading-10 flex items-center justify-center bg-base text-text border border-gray-10 cursor-pointer bg-white"
   />
 )
 
@@ -46,12 +46,13 @@ const SignOutButton = () => {
   )
 }
 
-const SubmitButton = () => {
+const SubmitButton = ({ icon }: { icon: ReactElement }) => {
   const { pending } = useFormStatus()
 
+  console.log('icon', icon)
   return (
     <CircleButton type="submit" aria-disabled={pending}>
-      {pending ? '...loading' : 'add'}
+      {icon}
     </CircleButton>
   )
 }
