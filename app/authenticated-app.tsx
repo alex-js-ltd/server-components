@@ -1,13 +1,19 @@
 import React from 'react'
 import { Input } from '@/comps/form-elements'
-import BookRow from '@/comps/book-row'
+import BookList from '@/comps/book-list'
 import { getBooks } from '@/utils/actions'
 
-const AuthenticatedApp = ({
+const AuthenticatedApp = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) => {
+  const { query } = searchParams
+
+  const startsWith = query?.toString() ?? ''
+
+  const books = await getBooks(startsWith)
+
   return (
     <div>
       <form>
@@ -21,31 +27,9 @@ const AuthenticatedApp = ({
         </label>
       </form>
 
-      <BookList searchParams={searchParams} />
+      <BookList books={books} />
     </div>
   )
 }
 
 export default AuthenticatedApp
-
-const BookList = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined }
-}) => {
-  const { query } = searchParams
-
-  const startsWith = query?.toString() ?? ''
-
-  const books = await getBooks(startsWith)
-
-  return (
-    <ul className="list-none p-0 grid grid-rows-auto-100 gap-4 mt-5">
-      {books.map(book => (
-        <li key={book.id}>
-          <BookRow book={book} />
-        </li>
-      ))}
-    </ul>
-  )
-}
