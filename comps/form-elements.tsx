@@ -9,4 +9,11 @@ const Input = (props: JSX.IntrinsicElements['input']) => (
   />
 )
 
-export { FormGroup, Input }
+const CircleForm = (props: JSX.IntrinsicElements['form']) => (
+  <form
+    {...props}
+    className="rounded-full w-10 h-10 leading-10 flex items-center justify-center bg-base text-text border border-gray-10 cursor-pointer"
+  />
+)
+
+export { FormGroup, Input, CircleForm }

@@ -1,23 +1,29 @@
 import type { Book } from '@prisma/client'
 import { Fragment } from 'react'
-import { CircleButton } from './buttons'
+import { CircleForm } from './form-elements'
 import * as actions from '@/utils/actions'
 
-const TooltipButton = ({ book }: { book: Book }) => {
+const TooltipButton = ({
+  action,
+  book,
+}: {
+  action: (data: FormData) => Promise<void>
+  book: Book
+}) => {
   return (
-    <form>
+    <CircleForm action={action}>
       {Object.entries(book).map(([key, value]) => (
-        <input key={key} name={key} value={value} />
+        <input key={key} name={key} defaultValue={value} />
       ))}
-      <CircleButton type="submit">x</CircleButton>
-    </form>
+      <button type="submit">xxxxxxxxx</button>
+    </CircleForm>
   )
 }
 
 const StatusButtons = ({ book }: { book: Book }) => {
   return (
     <Fragment>
-      <TooltipButton book={book} />
+      <TooltipButton action={actions.createListItem} book={book} />
     </Fragment>
   )
 }

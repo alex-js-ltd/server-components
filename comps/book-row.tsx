@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { Book } from '@prisma/client'
+import StatusButtons from './status-buttons'
 
 const BookRow = ({ book }: { book: Book }) => {
   const { title, author, coverImageUrl } = book
@@ -39,7 +40,9 @@ const BookRow = ({ book }: { book: Book }) => {
           </small>
         </div>
       </Link>
-      <div className="ml-20 absolute right-[-20px] text-gray-80 flex flex-col justify-between h-full"></div>
+      <div className="ml-20 absolute right-[-20px] text-gray-80 flex flex-col justify-between h-full">
+        <StatusButtons book={book} />
+      </div>
     </div>
   )
 }
