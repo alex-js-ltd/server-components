@@ -1,5 +1,5 @@
 import type { User } from '@clerk/nextjs/api'
-import { lazy } from 'react'
+import { lazy, Fragment } from 'react'
 import { currentUser } from '@clerk/nextjs'
 
 const AuthenticatedApp = lazy(() => import('./authenticated-app'))
@@ -12,13 +12,13 @@ const Home = async ({
 }) => {
   const user: User | null = await currentUser()
   return (
-    <>
+    <Fragment>
       {user ? (
         <AuthenticatedApp searchParams={searchParams} />
       ) : (
         <UnauthenticatedApp />
       )}
-    </>
+    </Fragment>
   )
 }
 
