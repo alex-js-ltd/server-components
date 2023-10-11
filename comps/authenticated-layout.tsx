@@ -3,12 +3,15 @@ import type { User } from '@clerk/nextjs/api'
 
 import { Fragment } from 'react'
 import { SignOutButton } from '@/comps/buttons'
-import { currentUser } from '@clerk/nextjs'
 import Link from 'next/link'
 
-const AuthenticatedLayout = async ({ children }: { children: ReactNode }) => {
-  const user: User | null = await currentUser()
-
+const AuthenticatedLayout = async ({
+  user,
+  children,
+}: {
+  user: User
+  children: ReactNode
+}) => {
   const email = user?.emailAddresses[0]?.emailAddress
 
   return (

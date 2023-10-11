@@ -19,28 +19,26 @@ const AuthenticatedApp = () => {
   }
 
   return (
-    <AuthenticatedLayout>
-      <div>
-        <form action={handleSearch}>
-          <Input
-            placeholder="Search books..."
-            id="search"
-            type="search"
-            name="query"
-            className="w-full"
-          />
+    <div>
+      <form action={handleSearch}>
+        <Input
+          placeholder="Search books..."
+          id="search"
+          type="search"
+          name="query"
+          className="w-full"
+        />
 
-          <label htmlFor="search">
-            <button
-              type="submit"
-              className="border-0 relative ml-[-35px] bg-transparent"
-            ></button>
-          </label>
-        </form>
+        <label htmlFor="search">
+          <button
+            type="submit"
+            className="border-0 relative ml-[-35px] bg-transparent"
+          ></button>
+        </label>
+      </form>
 
-        <BookList />
-      </div>
-    </AuthenticatedLayout>
+      <BookList />
+    </div>
   )
 }
 
