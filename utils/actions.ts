@@ -1,5 +1,5 @@
 'use server'
-
+import { revalidatePath } from 'next/cache'
 import { prisma } from '@/utils/db'
 import { auth } from '@clerk/nextjs'
 import type { Book } from '@prisma/client'
@@ -49,6 +49,18 @@ const createListItem = async (book: Book) => {
       },
     },
   })
+  revalidatePath(`/`)
+  revalidatePath(`/book/${book.id}`)
+}
+
+const removeListItem = async (book: Book) => {
+  const remove = await prisma.listItem.delete({
+    where: {
+      id: book.id,
+    },
+  })
+  revalidatePath(`/`)
+  revalidatePath(`/book/${book.id}`)
 }
 
 const getListItems = async () => {
@@ -74,4 +86,11 @@ const getListItem = async (bookId: string) => {
   return listItems?.find(li => li.bookId === bookId) ?? null
 }
 
-export { getBooks, getBook, createListItem, getListItems, getListItem }
+export {
+  getBooks,
+  getBook,
+  createListItem,
+  removeListItem,
+  getListItems,
+  getListItem,
+}

@@ -28,14 +28,23 @@ const TooltipButton = ({
   )
 }
 
-const StatusButtons = ({ book }: { book: Book }) => {
+const StatusButtons = async ({ book }: { book: Book }) => {
+  const listItem = await actions.getListItem(book.id)
   return (
     <Fragment>
-      <TooltipButton
-        action={actions.createListItem}
-        book={book}
-        icon={<FaPlusCircle />}
-      />
+      {listItem ? (
+        <TooltipButton
+          action={actions.removeListItem}
+          book={listItem}
+          icon={<FaMinusCircle />}
+        />
+      ) : (
+        <TooltipButton
+          action={actions.createListItem}
+          book={book}
+          icon={<FaPlusCircle />}
+        />
+      )}
     </Fragment>
   )
 }
