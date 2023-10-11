@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Book } from '@prisma/client'
 
 const BookRow = ({ book }: { book: Book }) => {
@@ -10,7 +11,7 @@ const BookRow = ({ book }: { book: Book }) => {
       <a
         aria-labelledby={id}
         href={`/book/${book.id}`}
-        className="min-h-96 flex-1 grid grid-cols-1fr gap-5 p-5 border border-gray-200 text-text rounded-md transition-transform hover:no-underline hover:shadow-md hover:text-inherit"
+        className="min-h-96 flex-1 grid grid-cols-[140px_1fr] gap-5 p-5 border border-gray-200 text-text rounded-md transition-transform hover:no-underline hover:shadow-md hover:text-inherit"
       >
         <div className="w-36 sm:w-24">
           <img
