@@ -5,9 +5,21 @@ import { currentUser } from '@clerk/nextjs'
 const AuthenticatedApp = lazy(() => import('./authenticated-app'))
 const UnauthenticatedApp = lazy(() => import('./unauthenticated-app'))
 
-const Home = async () => {
+const Home = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) => {
   const user: User | null = await currentUser()
-  return <>{user ? <AuthenticatedApp /> : <UnauthenticatedApp />}</>
+  return (
+    <>
+      {user ? (
+        <AuthenticatedApp searchParams={searchParams} />
+      ) : (
+        <UnauthenticatedApp />
+      )}
+    </>
+  )
 }
 
 export default Home
