@@ -8,11 +8,7 @@ export const metadata = {
   title: 'Next.js 13 with Clerk',
 }
 
-export default async function RootLayout({
-  children,
-}: {
-  children: ReactNode
-}) {
+const RootLayout = async ({ children }: { children: ReactNode }) => {
   const user: User | null = await currentUser()
   return (
     <ClerkProvider>
@@ -28,3 +24,5 @@ export default async function RootLayout({
     </ClerkProvider>
   )
 }
+
+export default RootLayout
