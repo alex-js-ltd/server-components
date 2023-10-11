@@ -9,21 +9,17 @@ export const metadata = {
   title: 'Next.js 13 with Clerk',
 }
 
-export default async function RootLayout({
-  children,
-}: {
-  children: ReactNode
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
+    <html lang="en">
+      <ClerkProvider>
         <body>
           <SignedIn>
             <AuthenticatedLayout>{children}</AuthenticatedLayout>
           </SignedIn>
           <SignedOut>{children}</SignedOut>
         </body>
-      </html>
-    </ClerkProvider>
+      </ClerkProvider>
+    </html>
   )
 }
