@@ -3,6 +3,7 @@ import type { ReactElement } from 'react'
 import { clsx } from 'clsx'
 import { useClerk } from '@clerk/clerk-react'
 import { useRouter } from 'next/navigation'
+import Spinner from './spinner'
 // @ts-expect-error
 import { experimental_useFormStatus as useFormStatus } from 'react-dom'
 
@@ -49,10 +50,9 @@ const SignOutButton = () => {
 const SubmitButton = ({ icon }: { icon: ReactElement }) => {
   const { pending } = useFormStatus()
 
-  console.log('icon', icon)
   return (
     <CircleButton type="submit" aria-disabled={pending}>
-      {icon}
+      {pending ? <Spinner /> : icon}
     </CircleButton>
   )
 }
