@@ -29,6 +29,7 @@ export const POST = async (request: Request) => {
     try {
       const user = await prisma.user.create({
         data: {
+          id: payload.data.id,
           email: payload.data.email_addresses[0]?.email_address,
         },
       })

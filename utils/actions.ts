@@ -1,7 +1,7 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import { prisma } from '@/utils/db'
+import { auth } from '@clerk/nextjs'
 
 const getBooks = async (startsWith: string) => {
   const books = await prisma.book.findMany({
@@ -12,8 +12,6 @@ const getBooks = async (startsWith: string) => {
       },
     },
   })
-
-  revalidatePath(`/?query=${startsWith}`)
 
   return books
 }
@@ -28,4 +26,27 @@ const getBook = async (id: string) => {
   return book
 }
 
-export { getBooks, getBook }
+const getListItems = async () => {
+  const { userId }: { userId: string | null } = auth()
+
+  if (!userId) return null
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    include: {
+      listItems: true,
+    },
+  })
+
+  return user?.listItems ?? null
+}
+
+const getListItem = async (bookId: string) => {
+  const listItems = await getListItems()
+
+  return listItems?.find(li => li.bookId === bookId) ?? null
+}
+
+export { getBooks, getBook, getListItems, getListItem }
