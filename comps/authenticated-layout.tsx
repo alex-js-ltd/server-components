@@ -4,7 +4,6 @@ import type { User } from '@clerk/nextjs/api'
 import { Fragment } from 'react'
 import { SignOutButton } from '@/comps/buttons'
 import Link from 'next/link'
-import { currentUser } from '@clerk/nextjs'
 
 const AuthenticatedLayout = ({
   user,
