@@ -27,16 +27,14 @@ const getBook = async (id: string) => {
   return book
 }
 
-const createListItem = async (book: Book, data: FormData) => {
+const createListItem = async (book: Book, _data: FormData) => {
   const { userId }: { userId: string | null } = auth()
 
   if (!userId) return
 
-  console.log('create list item', book)
-
   const { id: bookId, ...rest } = book
 
-  const res = await prisma.listItem.create({
+  await prisma.listItem.create({
     data: {
       ...rest,
       User: {
@@ -47,8 +45,6 @@ const createListItem = async (book: Book, data: FormData) => {
       },
     },
   })
-
-  console.log(res)
 }
 
 const getListItems = async () => {
