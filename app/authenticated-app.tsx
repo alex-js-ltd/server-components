@@ -1,6 +1,7 @@
 import React from 'react'
 import { Input } from '@/comps/form-elements'
 import { prisma } from '@/utils/db'
+import BookRow from '@/comps/book-row'
 
 const AuthenticatedApp = ({
   searchParams,
@@ -33,6 +34,7 @@ const BookList = async ({
   searchParams: { [key: string]: string | string[] | undefined }
 }) => {
   const { query } = searchParams
+
   const books = await prisma.book.findMany({
     where: {
       title: {
@@ -44,7 +46,9 @@ const BookList = async ({
   return (
     <ul className="list-none p-0 grid grid-rows-auto-100 gap-4">
       {books.map(book => (
-        <li key={book.id}>{book.title}</li>
+        <li key={book.id}>
+          <BookRow book={book} />
+        </li>
       ))}
     </ul>
   )
