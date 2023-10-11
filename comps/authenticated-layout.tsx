@@ -23,7 +23,7 @@ const AuthenticatedLayout = ({
         <SignOutButton />
       </div>
 
-      <div className="mx-auto max-w-screen-lg py-24 px-10 w-full grid gap-4 grid-cols-[1fr_3fr]">
+      <div className="mx-auto max-w-screen-lg py-24 px-10 w-full grid gap-4 grid-cols-[1fr] md:grid-cols-[1fr_3fr]">
         <div className="relative">
           <Nav />
         </div>
