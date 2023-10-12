@@ -38,7 +38,7 @@ const Nav = () => {
     <nav className="sticky top-4 px-6 py-4 border border-gray-100 rounded">
       <ul className="list-none p-0">
         <li>
-          <Link href="/reading-list">Reading List</Link>
+          <Link href="/list">Reading List</Link>
         </li>
         <li>
           <Link href="/finished">Finished Books</Link>

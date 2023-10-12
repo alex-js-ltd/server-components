@@ -1,7 +1,11 @@
-import React from 'react'
+import ListItemList from '@/comps/list-item-list'
 
 const Page = () => {
-  return <div>Page</div>
+  return (
+    <>
+      <ListItemList filterListItems={li => !li.finishDate} />
+    </>
+  )
 }
 
 export default Page

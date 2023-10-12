@@ -89,7 +89,7 @@ const getListItems = async () => {
       },
     })
 
-    return user?.listItems ?? null
+    return user?.listItems ?? []
   } catch (error) {}
 }
 

@@ -17,7 +17,7 @@ const AuthenticatedApp = async ({
 
   return (
     <div>
-      <form>
+      <form className="mb-5">
         <Input placeholder="Search books..." name="query" className="w-full" />
 
         <label htmlFor="search">
