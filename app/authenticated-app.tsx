@@ -24,6 +24,7 @@ const AuthenticatedApp = () => (
         <Link className="text-indigo-600" href="/discover">
           discover more
         </Link>
+        .
       </p>
     }
   />
