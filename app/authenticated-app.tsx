@@ -30,7 +30,7 @@ const AuthenticatedApp = async ({
         </label>
       </form>
 
-      <BookList books={books} />
+      {books ? <BookList books={books} /> : null}
     </div>
   )
 }
