@@ -33,23 +33,21 @@ const AuthenticatedLayout = ({
   )
 }
 
-const Nav = () => {
-  return (
-    <nav className="sticky top-4 px-6 py-4 border border-gray-100 rounded">
-      <ul className="list-none p-0">
-        <li>
-          <StyledLink href="/list">Reading List</StyledLink>
-        </li>
-        <li>
-          <StyledLink href="/finished">Finished Books</StyledLink>
-        </li>
-        <li>
-          <StyledLink href="/ ">Discover</StyledLink>
-        </li>
-      </ul>
-    </nav>
-  )
-}
+const Nav = () => (
+  <nav className="sticky top-4 px-6 py-4 border border-gray-100 rounded">
+    <ul className="list-none p-0">
+      <li>
+        <StyledLink href="/list">Reading List</StyledLink>
+      </li>
+      <li>
+        <StyledLink href="/finished">Finished Books</StyledLink>
+      </li>
+      <li>
+        <StyledLink href="/ ">Discover</StyledLink>
+      </li>
+    </ul>
+  </nav>
+)
 
 const StyledLink = (props: ComponentProps<typeof Link>) => (
   <Link
