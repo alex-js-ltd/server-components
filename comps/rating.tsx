@@ -19,7 +19,9 @@ const Rating = ({ listItem }: { listItem: ListItem }) => {
           value={ratingValue}
           checked={ratingValue === listItem.rating}
           className={`sr-only ${
-            ratingValue === listItem.rating ? 'text-orange' : 'text-gray-400'
+            ratingValue === listItem.rating
+              ? 'text-orange-300'
+              : 'text-gray-400'
           } hover:text-orange }`}
         />
         <label
@@ -27,12 +29,9 @@ const Rating = ({ listItem }: { listItem: ListItem }) => {
           className={
             listItem.rating && listItem.rating < 0
               ? 'text-gray-400'
-              : 'text-orange'
+              : 'text-orange-300'
           }
         >
-          <span className="sr-only">
-            {ratingValue} {ratingValue === 1 ? 'star' : 'stars'}
-          </span>
           <FaStar className="w-4 h-4 mx-1" />
         </label>
       </React.Fragment>

@@ -5,20 +5,10 @@ import { currentUser } from '@clerk/nextjs'
 const AuthenticatedApp = lazy(() => import('./authenticated-app'))
 const UnauthenticatedApp = lazy(() => import('./unauthenticated-app'))
 
-const Home = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined }
-}) => {
+const Home = async () => {
   const user: User | null = await currentUser()
   return (
-    <Fragment>
-      {user ? (
-        <AuthenticatedApp searchParams={searchParams} />
-      ) : (
-        <UnauthenticatedApp />
-      )}
-    </Fragment>
+    <Fragment>{user ? <AuthenticatedApp /> : <UnauthenticatedApp />}</Fragment>
   )
 }
 
