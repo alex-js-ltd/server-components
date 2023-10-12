@@ -1,37 +1,10 @@
-import React from 'react'
-import { Input } from '@/comps/form-elements'
-import BookList from '@/comps/book-list'
-import { getBooks } from '@/utils/actions'
-import { FaSearch, FaTimes } from 'react-icons/fa'
+import ListItemList from '@/comps/list-item-list'
 
-const AuthenticatedApp = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined }
-}) => {
-  const { query } = searchParams
-
-  const startsWith = query?.toString() ?? ''
-
-  const books = await getBooks(startsWith)
-
+const AuthenticatedApp = () => {
   return (
-    <div>
-      <form className="mb-5">
-        <Input placeholder="Search books..." name="query" className="w-full" />
-
-        <label htmlFor="search">
-          <button
-            type="submit"
-            className="border-0 relative ml-[-35px] bg-transparent"
-          >
-            <FaSearch aria-label="search" />
-          </button>
-        </label>
-      </form>
-
-      {books ? <BookList books={books} /> : null}
-    </div>
+    <>
+      <ListItemList filterListItems={li => !li.finishDate} />
+    </>
   )
 }
 
