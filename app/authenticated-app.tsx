@@ -18,7 +18,7 @@ const AuthenticatedApp = () => (
       <p>
         Looks like you've finished all your books! Check them out in your{' '}
         <Link className="text-indigo-600" href="/finished">
-          finished books
+          finished books{' '}
         </Link>
         or{' '}
         <Link className="text-indigo-600" href="/discover">
