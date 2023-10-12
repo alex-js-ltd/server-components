@@ -11,8 +11,6 @@ export const metadata = {
 const RootLayout = async ({ children }: { children: ReactNode }) => {
   const user: User | null = await currentUser()
 
-  console.log('userId', user?.id)
-
   return (
     <ClerkProvider>
       <html lang="en">
