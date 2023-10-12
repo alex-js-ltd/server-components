@@ -1,4 +1,4 @@
-import type { Book } from '@prisma/client'
+import type { Book, ListItem } from '@prisma/client'
 import type { ReactElement } from 'react'
 import type { CircleButtonProps } from './buttons'
 import { Fragment } from 'react'
@@ -38,13 +38,14 @@ const StatusButtons = async ({ book }: { book: Book }) => {
       {listItem ? (
         Boolean(listItem.finishDate) ? (
           <TooltipButton
-            action={actions.removeListItem}
+            action={actions.markAsUnRead}
             book={listItem}
             icon={<FaBook />}
+            variant="yellow"
           />
         ) : (
           <TooltipButton
-            action={actions.removeListItem}
+            action={actions.markAsRead}
             book={listItem}
             icon={<FaCheckCircle />}
             variant="green"

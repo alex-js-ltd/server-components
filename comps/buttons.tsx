@@ -8,7 +8,7 @@ import Spinner from './spinner'
 import { experimental_useFormStatus as useFormStatus } from 'react-dom'
 
 type CircleButtonProps = JSX.IntrinsicElements['button'] & {
-  variant?: 'indigo' | 'red' | 'white' | 'gray' | 'green'
+  variant?: 'indigo' | 'red' | 'white' | 'gray' | 'green' | 'yellow'
 }
 
 const CircleButton = (props: CircleButtonProps) => {
@@ -26,6 +26,7 @@ const CircleButton = (props: CircleButtonProps) => {
           'hover:text-white': variant === 'white',
           'hover:text-gray-300': variant === 'gray',
           'hover:text-green-300': variant === 'green',
+          'hover:text-yellow-300': variant === 'yellow',
         },
       )}
     />

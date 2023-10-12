@@ -56,6 +56,7 @@ const createListItem = async (book: Book) => {
   }
 
   revalidatePath(`/`)
+  revalidatePath(`/discover`)
   revalidatePath(`/book/${book.id}`)
 }
 
@@ -71,6 +72,7 @@ const removeListItem = async (book: Book) => {
   }
 
   revalidatePath(`/`)
+  revalidatePath(`/discover`)
   revalidatePath(`/book/${book.id}`)
 }
 
@@ -99,17 +101,38 @@ const getListItem = async (bookId: string) => {
   return listItems?.find(li => li.id === bookId) ?? null
 }
 
-const updateListItem = async (book: Book) => {
+const markAsRead = async (book: Book) => {
   const { id, ...rest } = book
 
   try {
     await prisma.listItem.update({
       where: { id },
-      data: { ...rest },
+      data: { ...rest, finishDate: new Date(Date.now()).toISOString() },
     })
   } catch (error) {
     console.log(error)
   }
+
+  revalidatePath(`/`)
+  revalidatePath(`/discover`)
+  revalidatePath(`/book/${book.id}`)
+}
+
+const markAsUnRead = async (book: Book) => {
+  const { id, ...rest } = book
+
+  try {
+    await prisma.listItem.update({
+      where: { id },
+      data: { ...rest, finishDate: null },
+    })
+  } catch (error) {
+    console.log(error)
+  }
+
+  revalidatePath(`/`)
+  revalidatePath(`/discover`)
+  revalidatePath(`/book/${book.id}`)
 }
 
 export {
@@ -119,5 +142,6 @@ export {
   removeListItem,
   getListItems,
   getListItem,
-  updateListItem,
+  markAsRead,
+  markAsUnRead,
 }
