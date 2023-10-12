@@ -1,7 +1,8 @@
-import type { ListItem } from '@prisma/client'
-import { Fragment } from 'react'
+import * as React from 'react'
 
 import { FaStar } from 'react-icons/fa'
+
+import { ListItem } from '@prisma/client'
 
 const Rating = ({ listItem }: { listItem: ListItem }) => {
   const rootClassName = `list-item-${listItem.id}`
@@ -10,25 +11,38 @@ const Rating = ({ listItem }: { listItem: ListItem }) => {
     const ratingId = `rating-${listItem.id}-${i}`
     const ratingValue = i + 1
     return (
-      <Fragment key={i}>
+      <React.Fragment key={i}>
         <input
           name={rootClassName}
           type="radio"
           id={ratingId}
           value={ratingValue}
           checked={ratingValue === listItem.rating}
+          className={`sr-only ${
+            ratingValue === listItem.rating ? 'text-orange' : 'text-gray-400'
+          } hover:text-orange }`}
         />
-        <label htmlFor={ratingId}>
-          <span className="border-0 clip-none h-1 w-1 m-n1 overflow-hidden p-0 absolute">
+        <label
+          htmlFor={ratingId}
+          className={
+            listItem.rating && listItem.rating < 0
+              ? 'text-gray-400'
+              : 'text-orange'
+          }
+        >
+          <span className="sr-only">
             {ratingValue} {ratingValue === 1 ? 'star' : 'stars'}
           </span>
-          <FaStar css={{ width: '16px', margin: '0 2px' }} />
+          <FaStar className="w-4 h-4 mx-1" />
         </label>
-      </Fragment>
+      </React.Fragment>
     )
   })
+
   return (
-    <div className="inline-flex items-center group hover:text-orange">
+    <div
+      className={`inline-flex items-center ${rootClassName} hover:text-orange`}
+    >
       <span className="flex">{stars}</span>
     </div>
   )

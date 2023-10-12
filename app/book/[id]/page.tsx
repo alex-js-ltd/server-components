@@ -1,5 +1,6 @@
 import { getBook } from '@/utils/actions'
 import invariant from 'tiny-invariant'
+import StatusButtons from '@/comps/status-buttons'
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const { id } = params
@@ -29,7 +30,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
               </div>
             </div>
             <div className="right-0 text-gray-700 flex flex-col justify-between min-h-32">
-              {/* <StatusButtons book={book} /> */}
+              <StatusButtons book={book} />
             </div>
           </div>
           <div className="mt-4 h-12"></div>
