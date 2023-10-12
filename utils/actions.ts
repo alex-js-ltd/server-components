@@ -1,8 +1,9 @@
 'use server'
+
+import type { Book } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { prisma } from '@/utils/db'
 import { auth } from '@clerk/nextjs'
-import type { Book } from '@prisma/client'
 
 const getBooks = async (startsWith: string) => {
   try {
