@@ -33,6 +33,22 @@ const StatusButtons = async ({ book }: { book: Book }) => {
   return (
     <Fragment>
       {listItem ? (
+        Boolean(listItem.finishDate) ? (
+          <TooltipButton
+            action={actions.removeListItem}
+            book={listItem}
+            icon={<FaBook />}
+          />
+        ) : (
+          <TooltipButton
+            action={actions.removeListItem}
+            book={listItem}
+            icon={<FaCheckCircle />}
+          />
+        )
+      ) : null}
+
+      {listItem ? (
         <TooltipButton
           action={actions.removeListItem}
           book={listItem}
