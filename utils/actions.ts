@@ -2,7 +2,7 @@
 import { revalidatePath } from 'next/cache'
 import { prisma } from '@/utils/db'
 import { auth } from '@clerk/nextjs'
-import type { Book, ListItem } from '@prisma/client'
+import type { Book } from '@prisma/client'
 
 const getBooks = async (startsWith: string) => {
   try {
@@ -103,11 +103,6 @@ const getListItem = async (bookId: string) => {
 
   return listItems?.find(li => li.bookId === bookId) ?? null
 }
-
-const filterListItems = async (
-  books: Array<Book>,
-  listItems: Array<ListItem>,
-) => {}
 
 export {
   getBooks,
