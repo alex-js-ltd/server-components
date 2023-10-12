@@ -135,7 +135,7 @@ const SignUpForm = () => {
       .then(async response => {
         const completeSignUp = await response.prepareEmailAddressVerification({
           strategy: 'email_link',
-          redirectUrl: `${BASE_URL}/discover`,
+          redirectUrl: `${BASE_URL}`,
         })
 
         if (completeSignUp.status === 'complete') {
