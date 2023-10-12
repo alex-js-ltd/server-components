@@ -1,8 +1,11 @@
-import Link from 'next/link'
-import type { Book } from '@prisma/client'
-import StatusButtons from './status-buttons'
+import type { Book, ListItem } from '@prisma/client'
 
-const BookRow = ({ book }: { book: Book }) => {
+import Link from 'next/link'
+import StatusButtons from './status-buttons'
+import Rating from './rating'
+import { isListItem } from '@/utils/type-guards'
+
+const BookRow = ({ book }: { book: Book | ListItem }) => {
   const { title, author, coverImageUrl } = book
 
   const id = `book-row-book-${book.id}`
@@ -28,7 +31,7 @@ const BookRow = ({ book }: { book: Book }) => {
                 {title}
               </h2>
               {/* Add Rating component if listItem is available */}
-              {/* {listItem?.finishDate ? <Rating listItem={listItem} /> : null} */}
+              {isListItem(book) ? <Rating listItem={book} /> : null}
             </div>
             <div className="ml-10">
               <div className="mt-0.4em italic text-0.85em">{author}</div>
