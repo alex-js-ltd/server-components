@@ -99,6 +99,19 @@ const getListItem = async (bookId: string) => {
   return listItems?.find(li => li.id === bookId) ?? null
 }
 
+const updateListItem = async (book: Book) => {
+  const { id, ...rest } = book
+
+  try {
+    await prisma.listItem.update({
+      where: { id },
+      data: { ...rest },
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export {
   getBooks,
   getBook,
@@ -106,4 +119,5 @@ export {
   removeListItem,
   getListItems,
   getListItem,
+  updateListItem,
 }
