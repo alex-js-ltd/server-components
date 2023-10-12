@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-const ListItemSchema = z.object({
+const FinishedItemSchema = z.object({
   id: z.string(),
   title: z.string(),
   author: z.string(),
@@ -9,16 +9,14 @@ const ListItemSchema = z.object({
   synopsis: z.string(),
   pageCount: z.number(),
   startDate: z.date(),
-  finishDate: z.date().nullable(),
+  finishDate: z.date(),
   rating: z.number().nullable(),
   notes: z.string().nullable(),
   userId: z.string(),
 })
 
-type ListItem = z.infer<typeof ListItemSchema>
+type FinishedItem = z.infer<typeof FinishedItemSchema>
 
-const isListItem = (item: any): item is ListItem => {
-  return ListItemSchema.safeParse(item).success
+export const isFinishedItem = (item: any): item is FinishedItem => {
+  return FinishedItemSchema.safeParse(item).success
 }
-
-export { isListItem }
