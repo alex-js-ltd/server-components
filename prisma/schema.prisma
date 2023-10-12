@@ -2,7 +2,6 @@ datasource db {
   provider  = "postgresql"
   url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
-
 }
 
 generator client {
@@ -18,14 +17,13 @@ model User {
 }
 
 model Book {
-  id            String     @id @default(uuid())
-  title         String     @unique
+  id            String @id @default(uuid())
+  title         String @unique
   author        String
   coverImageUrl String
   publisher     String
-  synopsis      String     @db.Text
+  synopsis      String @db.Text
   pageCount     Int
-  ListItem      ListItem[]
 }
 
 model ListItem {
@@ -41,12 +39,8 @@ model ListItem {
   rating        Int?
   notes         String?
 
-  bookId String
-  Book   Book   @relation(fields: [bookId], references: [id])
-
   userId String
   User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([bookId])
   @@index([userId])
 }

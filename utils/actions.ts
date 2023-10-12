@@ -42,17 +42,12 @@ const createListItem = async (book: Book) => {
 
   if (listItem) return
 
-  const { id: bookId, ...rest } = book
-
   try {
     await prisma.listItem.create({
       data: {
-        ...rest,
+        ...book,
         User: {
           connect: { id: userId },
-        },
-        Book: {
-          connect: { id: bookId },
         },
       },
     })
@@ -101,7 +96,7 @@ const getListItems = async () => {
 const getListItem = async (bookId: string) => {
   const listItems = await getListItems()
 
-  return listItems?.find(li => li.bookId === bookId) ?? null
+  return listItems?.find(li => li.id === bookId) ?? null
 }
 
 export {
