@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { ReactNode, ComponentProps } from 'react'
 import type { User } from '@clerk/nextjs/api'
 
 import { Fragment } from 'react'
@@ -38,17 +38,24 @@ const Nav = () => {
     <nav className="sticky top-4 px-6 py-4 border border-gray-100 rounded">
       <ul className="list-none p-0">
         <li>
-          <Link href="/list">Reading List</Link>
+          <StyledLink href="/list">Reading List</StyledLink>
         </li>
         <li>
-          <Link href="/finished">Finished Books</Link>
+          <StyledLink href="/finished">Finished Books</StyledLink>
         </li>
         <li>
-          <Link href="/ ">Discover</Link>
+          <StyledLink href="/ ">Discover</StyledLink>
         </li>
       </ul>
     </nav>
   )
 }
+
+const StyledLink = (props: ComponentProps<typeof Link>) => (
+  <Link
+    className="block p-2 pl-3 my-1 w-full h-full text-gray-600 rounded-2 border-l-5 border-transparent hover:text-indigo-300 hover:no-underline hover:bg-gray-100 focus:text-indigo-600 focus:no-underline focus:bg-gray-200 rounded"
+    {...props}
+  />
+)
 
 export default AuthenticatedLayout
