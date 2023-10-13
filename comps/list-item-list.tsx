@@ -19,10 +19,14 @@ const ListItemList = async ({
   const filteredListItems = listItems.filter(filterListItems)
 
   if (!listItems.length) {
-    return <div className="mt-4 text-lg">{noListItems}</div>
+    return <div className="mt-4 text-lg [&>p]:text-gray-600">{noListItems}</div>
   }
   if (!filteredListItems.length) {
-    return <div className="mt-4 text-lg">{noFilteredListItems}</div>
+    return (
+      <div className="mt-4 text-lg [&>p]:text-gray-600">
+        {noFilteredListItems}
+      </div>
+    )
   }
 
   return <BookList books={filteredListItems} />

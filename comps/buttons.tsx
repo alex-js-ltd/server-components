@@ -18,15 +18,15 @@ const CircleButton = (props: CircleButtonProps) => {
       {...rest}
       className={clsx(
         className,
-        'rounded-full w-10 h-10 leading-10 flex items-center justify-center bg-base text-text border border-gray-10 cursor-pointer bg-white',
+        'rounded-full w-10 h-10 leading-10 flex items-center justify-center bg-base text-text border border-gray-10 cursor-pointer bg-white text-gray-400',
 
         {
-          'hover:text-indigo-300': variant === 'indigo',
-          'hover:text-red-300': variant === 'red',
+          'hover:text-blue-400': variant === 'indigo',
+          'hover:text-red-400': variant === 'red',
           'hover:text-white': variant === 'white',
-          'hover:text-gray-300': variant === 'gray',
-          'hover:text-green-300': variant === 'green',
-          'hover:text-yellow-300': variant === 'yellow',
+          'hover:text-gray-400': variant === 'gray',
+          'hover:text-green-400': variant === 'green',
+          'hover:text-yellow-400': variant === 'yellow',
         },
       )}
     />

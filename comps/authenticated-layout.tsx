@@ -51,7 +51,7 @@ const Nav = () => (
 
 const StyledLink = (props: ComponentProps<typeof Link>) => (
   <Link
-    className="block p-2 pl-3 my-1 w-full h-full text-gray-600 rounded-2 border-l-5 border-transparent hover:text-indigo-300 hover:no-underline hover:bg-gray-100 focus:text-indigo-600 focus:no-underline focus:bg-gray-200 rounded"
+    className="block p-2 pl-3 my-1 w-full h-full text-gray-600 rounded-2 border-l-5 border-transparent hover:text-blue-400 hover:no-underline focus:text-blue-400 focus:no-underline rounded"
     {...props}
   />
 )
