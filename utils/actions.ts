@@ -6,14 +6,19 @@ import { prisma } from '@/utils/db'
 import { auth } from '@clerk/nextjs'
 
 const getBooks = async (startsWith: string) => {
-  return await prisma.book.findMany({
-    where: {
-      title: {
-        startsWith,
-        mode: 'insensitive',
+  return prisma.book
+    .findMany({
+      where: {
+        title: {
+          startsWith,
+          mode: 'insensitive',
+        },
       },
-    },
-  })
+    })
+    .then(response => {
+      revalidatePath(`/discover?query=${startsWith}`)
+      return response
+    })
 }
 
 const getBook = async (id: string) => {
