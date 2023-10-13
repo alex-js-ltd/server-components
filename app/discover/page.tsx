@@ -1,7 +1,9 @@
+import { Suspense } from 'react'
 import { Input } from '@/comps/form-elements'
 import BookList from '@/comps/book-list'
 import { getBooks } from '@/utils/actions'
 import { FaSearch } from 'react-icons/fa'
+import Loading from '@/comps/loading'
 
 const Page = async ({
   searchParams,
@@ -34,7 +36,9 @@ const Page = async ({
         </label>
       </form>
 
-      <BookList books={books} />
+      <Suspense fallback={<Loading />}>
+        <BookList books={books} />
+      </Suspense>
     </div>
   )
 }
