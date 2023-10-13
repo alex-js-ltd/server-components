@@ -17,6 +17,6 @@ const FinishedItemSchema = z.object({
 
 type FinishedItem = z.infer<typeof FinishedItemSchema>
 
-export const isFinishedItem = (item: any): item is FinishedItem => {
+export const isFinishedItem = (item: unknown): item is FinishedItem => {
   return FinishedItemSchema.safeParse(item).success
 }
