@@ -7,6 +7,7 @@ import { cloneElement } from 'react'
 import { FormGroup, Input } from '@/comps/form-elements'
 import { Button } from '@/comps/buttons'
 import { Modal } from '@/comps/modal'
+import Spinner from '@/comps/spinner'
 
 import { useSignUp, useSignIn } from '@clerk/nextjs'
 import { useAsync } from '@/utils/use-async'
@@ -58,7 +59,7 @@ interface LoginFormProps {
 }
 
 const LoginForm = ({ onSubmit, submitButton }: LoginFormProps) => {
-  const { run } = useAsync<SignUpResource | SignInResource>()
+  const { isLoading, run } = useAsync<SignUpResource | SignInResource>()
 
   const handleSubmit = (event: SyntheticEvent<Form>) => {
     event.preventDefault()
@@ -81,13 +82,11 @@ const LoginForm = ({ onSubmit, submitButton }: LoginFormProps) => {
         <Input id="password" type="password" />
       </FormGroup>
       <div>
-        {cloneElement(
-          submitButton,
-          { type: 'submit' },
-          ...(Array.isArray(submitButton.props.children)
-            ? submitButton.props.children
-            : [submitButton.props.children]),
-        )}
+        {cloneElement(submitButton, {
+          type: 'submit',
+          children: isLoading ? <Spinner /> : submitButton.props.children,
+          disabled: isLoading,
+        })}
       </div>
     </form>
   )

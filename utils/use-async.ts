@@ -96,6 +96,11 @@ const useAsync = <DataType>() => {
   }, [])
 
   return {
+    isIdle: status === 'idle',
+    isLoading: status === 'pending',
+    isError: status === 'rejected',
+    isSuccess: status === 'resolved',
+
     error,
     status,
     data,
