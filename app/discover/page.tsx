@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { Input } from '@/comps/form-elements'
 import BookList from '@/comps/book-list'
 import { getBooks } from '@/utils/actions'
@@ -34,7 +35,9 @@ const Page = async ({
         </label>
       </form>
 
-      {books ? <BookList books={books} /> : null}
+      <Suspense fallback={<>...loading</>}>
+        <BookList books={books} />
+      </Suspense>
     </div>
   )
 }

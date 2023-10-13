@@ -6,19 +6,14 @@ import { prisma } from '@/utils/db'
 import { auth } from '@clerk/nextjs'
 
 const getBooks = async (startsWith: string) => {
-  try {
-    const books = await prisma.book.findMany({
-      where: {
-        title: {
-          startsWith,
-          mode: 'insensitive',
-        },
+  return await prisma.book.findMany({
+    where: {
+      title: {
+        startsWith,
+        mode: 'insensitive',
       },
-    })
-    return books
-  } catch (error) {
-    console.log(error)
-  }
+    },
+  })
 }
 
 const getBook = async (id: string) => {
