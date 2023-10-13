@@ -17,7 +17,12 @@ const Page = async ({
   return (
     <div>
       <form className="mb-5">
-        <Input placeholder="Search books..." name="query" className="w-full" />
+        <Input
+          placeholder="Search books..."
+          name="query"
+          className="w-full"
+          defaultValue={startsWith}
+        />
 
         <label htmlFor="search">
           <button
