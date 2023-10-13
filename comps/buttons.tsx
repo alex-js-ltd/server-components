@@ -43,9 +43,9 @@ const Button = (
       {...rest}
       className={clsx(
         className,
-        'px-4 py-2 rounded border min-h-[42px] min-w-[93px] flex items-center justify-center',
+        'px-4 py-2 rounded min-h-[42px] min-w-[93px] flex items-center justify-center border-none',
         {
-          'bg-indigo-300 text-white': variant === 'primary',
+          'bg-blue-400 text-white': variant === 'primary',
           'bg-gray-300 text-black': variant === 'secondary',
         },
       )}
