@@ -1,7 +1,7 @@
 import type { Book } from '@prisma/client'
 import BookList from '@/comps/book-list'
 
-const loadingBook: Book = {
+export const loadingBook: Book = {
   id: '1',
   title: 'Loading...',
   author: 'loading...',
