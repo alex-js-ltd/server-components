@@ -1,9 +1,6 @@
-import { Suspense } from 'react'
-import { Input } from '@/comps/form-elements'
+import SearchForm from '@/comps/search-form'
 import BookList from '@/comps/book-list'
-import { getBooks } from '@/utils/actions'
-import { FaSearch } from 'react-icons/fa'
-import Loading from '@/comps/loading'
+import * as actions from '@/utils/actions'
 
 const Page = async ({
   searchParams,
@@ -14,31 +11,13 @@ const Page = async ({
 
   const startsWith = query?.toString() ?? ''
 
-  const books = await getBooks(startsWith)
+  const books = await actions.getBooks(startsWith)
 
   return (
     <div>
-      <form className="mb-5">
-        <Input
-          placeholder="Search books..."
-          name="query"
-          className="w-full"
-          defaultValue={startsWith}
-        />
+      <SearchForm defaultValue={startsWith} />
 
-        <label htmlFor="search">
-          <button
-            type="submit"
-            className="border-0 relative ml-[-35px] bg-transparent"
-          >
-            <FaSearch aria-label="search" />
-          </button>
-        </label>
-      </form>
-
-      <Suspense fallback={<Loading />}>
-        <BookList books={books} />
-      </Suspense>
+      <BookList books={books} />
     </div>
   )
 }
