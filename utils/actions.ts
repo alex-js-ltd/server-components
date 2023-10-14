@@ -6,8 +6,8 @@ import { prisma } from '@/utils/db'
 import { auth } from '@clerk/nextjs'
 
 const getBooks = async (startsWith: string) => {
-  return prisma.book
-    .findMany({
+  try {
+    const books = await prisma.book.findMany({
       where: {
         title: {
           startsWith,
@@ -15,10 +15,13 @@ const getBooks = async (startsWith: string) => {
         },
       },
     })
-    .then(response => {
-      revalidatePath(`/discover?query=${startsWith}`)
-      return response
-    })
+
+    revalidatePath(`/discover?query=${startsWith}`)
+    return books
+  } catch (error) {
+    console.log(error)
+    return []
+  }
 }
 
 const getBook = async (id: string) => {
@@ -31,6 +34,7 @@ const getBook = async (id: string) => {
     return book
   } catch (error) {
     console.log(error)
+    return null
   }
 }
 
