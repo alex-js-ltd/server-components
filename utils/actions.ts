@@ -119,7 +119,7 @@ const markAsRead = async (book: Book) => {
   }
 
   revalidatePath(`/`)
-  revalidatePath(`/discover`)
+  revalidatePath(`/finished`)
   revalidatePath(`/book/${book.id}`)
 }
 
@@ -136,7 +136,7 @@ const markAsUnRead = async (book: Book) => {
   }
 
   revalidatePath(`/`)
-  revalidatePath(`/discover`)
+  revalidatePath(`/finished`)
   revalidatePath(`/book/${book.id}`)
 }
 
