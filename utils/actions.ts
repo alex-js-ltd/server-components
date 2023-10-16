@@ -144,10 +144,8 @@ const markAsUnRead = async (book: Book) => {
 const updateListItem = async (book: ListItem, data: FormData) => {
   const { id, ...rest } = book
 
-  console.log('update list item')
-
   const notes = data.get('notes')
-  console.log('notes', notes)
+
   if (isNullableString(notes))
     try {
       await prisma.listItem.update({
