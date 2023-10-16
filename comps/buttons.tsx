@@ -8,7 +8,7 @@ import Spinner from './spinner'
 import { experimental_useFormStatus as useFormStatus } from 'react-dom'
 
 type CircleButtonProps = JSX.IntrinsicElements['button'] & {
-  variant?: 'indigo' | 'red' | 'white' | 'gray' | 'green' | 'yellow'
+  variant?: 'blue' | 'red' | 'white' | 'gray' | 'green' | 'yellow'
 }
 
 const CircleButton = (props: CircleButtonProps) => {
@@ -21,7 +21,7 @@ const CircleButton = (props: CircleButtonProps) => {
         'rounded-full w-10 h-10 leading-10 flex items-center justify-center bg-base text-text border border-gray-10 cursor-pointer bg-white text-gray-400',
 
         {
-          'hover:text-blue-400': variant === 'indigo',
+          'hover:text-blue-400': variant === 'blue',
           'hover:text-red-400': variant === 'red',
           'hover:text-white': variant === 'white',
           'hover:text-gray-400': variant === 'gray',
@@ -33,9 +33,11 @@ const CircleButton = (props: CircleButtonProps) => {
   )
 }
 
-const Button = (
-  props: JSX.IntrinsicElements['button'] & { variant: 'primary' | 'secondary' },
-) => {
+type ButtonProps = JSX.IntrinsicElements['button'] & {
+  variant: 'primary' | 'secondary'
+}
+
+const Button = (props: ButtonProps) => {
   const { className, variant, ...rest } = props
 
   return (
@@ -69,7 +71,7 @@ const SignOutButton = () => {
   )
 }
 
-const SubmitButton = ({
+const SubmitCircleButton = ({
   variant,
   icon,
 }: {
@@ -89,6 +91,16 @@ const SubmitButton = ({
   )
 }
 
-export { CircleButton, Button, SignOutButton, SubmitButton }
+const SubmitButton = ({ variant, children }: ButtonProps) => {
+  const { pending } = useFormStatus()
+
+  return (
+    <Button variant={variant} type="submit" aria-disabled={pending}>
+      {pending ? <Spinner /> : children}
+    </Button>
+  )
+}
+
+export { CircleButton, Button, SignOutButton, SubmitCircleButton, SubmitButton }
 
 export type { CircleButtonProps }

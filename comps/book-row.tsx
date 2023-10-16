@@ -2,8 +2,7 @@ import type { Book, ListItem } from '@prisma/client'
 
 import Link from 'next/link'
 import StatusButtons from './status-buttons'
-import Rating from './rating'
-import { isFinishedItem } from '@/utils/type-guards'
+import { isFinishedBook, isLoadingBook } from '@/utils/type-guards'
 
 const BookRow = ({ book }: { book: Book | ListItem }) => {
   const { title, author, coverImageUrl } = book
@@ -31,7 +30,7 @@ const BookRow = ({ book }: { book: Book | ListItem }) => {
                 {title}
               </h2>
               {/* Add Rating component if listItem is available */}
-              {isFinishedItem(book) ? <Rating listItem={book} /> : null}
+              {isFinishedBook(book) ? null : null}
             </div>
             <div className="ml-10">
               <div className="mt-[0.4em] italic text-xs">{author}</div>
@@ -44,7 +43,7 @@ const BookRow = ({ book }: { book: Book | ListItem }) => {
         </div>
       </Link>
       <div className="ml-20 absolute right-[-20px] flex flex-col justify-around h-full">
-        <StatusButtons book={book} />
+        {isLoadingBook(book) ? null : <StatusButtons book={book} />}
       </div>
     </div>
   )

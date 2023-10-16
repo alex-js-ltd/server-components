@@ -1,4 +1,4 @@
-import type { Book, ListItem } from '@prisma/client'
+import type { Book } from '@prisma/client'
 import type { ReactElement } from 'react'
 import type { CircleButtonProps } from './buttons'
 import { Fragment } from 'react'
@@ -7,9 +7,8 @@ import {
   FaPlusCircle,
   FaMinusCircle,
   FaBook,
-  FaTimesCircle,
 } from 'react-icons/fa'
-import { SubmitButton } from './buttons'
+import { SubmitCircleButton } from './buttons'
 import * as actions from '@/utils/actions'
 
 const TooltipButton = ({
@@ -26,7 +25,7 @@ const TooltipButton = ({
   const actionWithArgument = action.bind(null, book)
   return (
     <form action={actionWithArgument}>
-      <SubmitButton variant={variant} icon={icon} />
+      <SubmitCircleButton variant={variant} icon={icon} />
     </form>
   )
 }
@@ -65,7 +64,7 @@ const StatusButtons = async ({ book }: { book: Book }) => {
           action={actions.createListItem}
           book={book}
           icon={<FaPlusCircle />}
-          variant="indigo"
+          variant="blue"
         />
       )}
     </Fragment>

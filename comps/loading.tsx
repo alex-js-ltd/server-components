@@ -1,7 +1,7 @@
-import type { Book } from '@prisma/client'
+import type { LoadingBook } from '@/utils/type-guards'
 import BookList from '@/comps/book-list'
 
-export const loadingBook: Book = {
+export const loadingBook: LoadingBook = {
   id: '1',
   title: 'Loading...',
   author: 'loading...',
@@ -9,12 +9,16 @@ export const loadingBook: Book = {
   publisher: 'Loading Publishing',
   synopsis: 'Loading...',
   pageCount: 0,
+  loading: true,
 }
 
-const loadingBooks: Array<Book> = Array.from({ length: 10 }, (v, index) => ({
-  ...loadingBook,
-  id: `loading-book-${index}`,
-}))
+const loadingBooks: Array<LoadingBook> = Array.from(
+  { length: 10 },
+  (v, index) => ({
+    ...loadingBook,
+    id: `loading-book-${index}`,
+  }),
+)
 
 const Loading = () => <BookList books={loadingBooks} />
 

@@ -1,15 +1,22 @@
-import { getBook } from '@/utils/actions'
+import type { ListItem } from '@prisma/client'
+
 import invariant from 'tiny-invariant'
 import StatusButtons from '@/comps/status-buttons'
+import { TextArea } from '@/comps/form-elements'
+import { SubmitButton } from '@/comps/buttons'
+
+import * as actions from '@/utils/actions'
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const { id } = params
 
-  const book = await getBook(id)
+  const book = await actions.getBook(id)
 
   invariant(book, 'Missing book')
 
   const { coverImageUrl, title, author, publisher, synopsis } = book
+
+  const listItem = await actions.getListItem(id)
 
   return (
     <div>
@@ -38,8 +45,30 @@ const Page = async ({ params }: { params: { id: string } }) => {
           <p>{synopsis}</p>
         </div>
       </div>
+      {listItem ? <NotesTextarea listItem={listItem} /> : null}
     </div>
   )
 }
 
 export default Page
+
+const NotesTextarea = ({ listItem }: { listItem: ListItem }) => {
+  const actionWithArgument = actions.updateListItem.bind(null, listItem)
+  return (
+    <form action={actionWithArgument}>
+      <label htmlFor="notes" className="inline-block mr-10 mt-0 mb-2 font-bold">
+        Notes
+      </label>
+
+      <TextArea
+        id="notes"
+        name="notes"
+        defaultValue={listItem.notes?.toString()}
+      />
+
+      <SubmitButton variant="secondary" type="submit">
+        Post
+      </SubmitButton>
+    </form>
+  )
+}

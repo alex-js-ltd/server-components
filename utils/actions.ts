@@ -1,9 +1,10 @@
 'use server'
 
-import type { Book } from '@prisma/client'
+import type { Book, ListItem } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { prisma } from '@/utils/db'
 import { auth } from '@clerk/nextjs'
+import { isNullableString } from './type-guards'
 
 const getBooks = async (startsWith: string) => {
   try {
@@ -140,6 +141,26 @@ const markAsUnRead = async (book: Book) => {
   revalidatePath(`/book/${book.id}`)
 }
 
+const updateListItem = async (book: ListItem, data: FormData) => {
+  const { id, ...rest } = book
+
+  console.log('update list item')
+
+  const notes = data.get('notes')
+  console.log('notes', notes)
+  if (isNullableString(notes))
+    try {
+      await prisma.listItem.update({
+        where: { id },
+        data: { ...rest, notes },
+      })
+    } catch (error) {
+      console.log(error)
+    }
+
+  revalidatePath(`/book/${book.id}`)
+}
+
 export {
   getBooks,
   getBook,
@@ -149,4 +170,5 @@ export {
   getListItem,
   markAsRead,
   markAsUnRead,
+  updateListItem,
 }
