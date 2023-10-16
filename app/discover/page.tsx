@@ -46,5 +46,5 @@ export default Page
 const DiscoverList = async ({ startsWith }: { startsWith: string }) => {
   const books = await actions.getBooks(startsWith)
 
-  return <BookList books={books} />
+  return <BookList books={[...books.map(el => ({ ...el, bookId: el.id }))]} />
 }

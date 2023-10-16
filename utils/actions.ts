@@ -107,6 +107,13 @@ const getListItems = async () => {
 const getListItem = async (bookId: string) => {
   const listItems = await getListItems()
 
+  console.log(
+    'listItems',
+    listItems?.map(el => el.bookId),
+  )
+
+  console.log(bookId)
+
   return listItems?.find(li => li.bookId === bookId) ?? null
 }
 

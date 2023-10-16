@@ -1,10 +1,10 @@
-import type { Book, ListItem } from '@prisma/client'
+import type { ListItem } from '@prisma/client'
 
 import Link from 'next/link'
 import StatusButtons from './status-buttons'
-import { isFinishedBook, isLoadingBook } from '@/utils/type-guards'
+import { LoadingBook, isFinishedBook, isLoadingBook } from '@/utils/type-guards'
 
-const BookRow = ({ book }: { book: Book | ListItem }) => {
+const BookRow = ({ book }: { book: ListItem | LoadingBook }) => {
   const { title, author, coverImageUrl } = book
 
   const id = `book-row-book-${book.id}`

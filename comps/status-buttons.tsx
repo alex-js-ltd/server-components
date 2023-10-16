@@ -30,8 +30,10 @@ const TooltipButton = <DataType,>({
   )
 }
 
-const StatusButtons = async ({ book }: { book: Book }) => {
-  const listItem = await actions.getListItem(book.id)
+const StatusButtons = async ({ book }: { book: ListItem }) => {
+  const listItem = await actions.getListItem(book.bookId)
+
+  console.log('listItem', listItem)
   return (
     <Fragment>
       {listItem ? (
