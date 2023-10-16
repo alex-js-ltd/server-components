@@ -15,31 +15,29 @@ import { getEnv } from '@/utils/env'
 
 const { BASE_URL } = getEnv()
 
-const UnauthenticatedApp = () => {
-  return (
-    <div className="flex flex-col items-center justify-center w-full h-screen">
-      <div className="grid grid-cols-2 gap-3">
-        <Modal>
-          <Modal.OpenButton>
-            <Button variant="primary">Login</Button>
-          </Modal.OpenButton>
-          <Modal.Contents title="Login">
-            <SignInForm />
-          </Modal.Contents>
-        </Modal>
+const UnauthenticatedApp = () => (
+  <div className="flex flex-col items-center justify-center w-full h-screen">
+    <div className="grid grid-cols-2 gap-3">
+      <Modal>
+        <Modal.OpenButton>
+          <Button variant="primary">Login</Button>
+        </Modal.OpenButton>
+        <Modal.Contents title="Login">
+          <SignInForm />
+        </Modal.Contents>
+      </Modal>
 
-        <Modal>
-          <Modal.OpenButton>
-            <Button variant="secondary">Register</Button>
-          </Modal.OpenButton>
-          <Modal.Contents title="Register">
-            <SignUpForm />
-          </Modal.Contents>
-        </Modal>
-      </div>
+      <Modal>
+        <Modal.OpenButton>
+          <Button variant="secondary">Register</Button>
+        </Modal.OpenButton>
+        <Modal.Contents title="Register">
+          <SignUpForm />
+        </Modal.Contents>
+      </Modal>
     </div>
-  )
-}
+  </div>
+)
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement
