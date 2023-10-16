@@ -8,7 +8,7 @@ const Page = () => (
       <p>
         Hey there! This is where books will go when you've finished reading
         them. Get started by heading over to{' '}
-        <Link className="text-indigo-600" href="/discover">
+        <Link className="text-blue-400" href="/discover">
           the Discover page
         </Link>{' '}
         to add books to your list.
@@ -17,11 +17,11 @@ const Page = () => (
     noFilteredListItems={
       <p>
         Looks like you've got some reading to do! Check them out in your{' '}
-        <Link className="text-indigo-600" href="/list">
+        <Link className="text-blue-400" href="/list">
           reading list
         </Link>{' '}
         or{' '}
-        <Link className="text-indigo-600" href="/discover">
+        <Link className="text-blue-400" href="/discover">
           discover more
         </Link>
         .
