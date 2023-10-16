@@ -48,10 +48,13 @@ const createListItem = async (book: Book) => {
 
   if (listItem) return
 
+  const { id, ...rest } = book
+
   try {
     await prisma.listItem.create({
       data: {
-        ...book,
+        ...rest,
+        bookId: id,
         User: {
           connect: { id: userId },
         },
@@ -66,11 +69,11 @@ const createListItem = async (book: Book) => {
   revalidatePath(`/book/${book.id}`)
 }
 
-const removeListItem = async (book: Book) => {
+const removeListItem = async (listItem: ListItem) => {
   try {
     await prisma.listItem.delete({
       where: {
-        id: book.id,
+        id: listItem.id,
       },
     })
   } catch (error) {
@@ -79,7 +82,7 @@ const removeListItem = async (book: Book) => {
 
   revalidatePath(`/`)
   revalidatePath(`/discover`)
-  revalidatePath(`/book/${book.id}`)
+  revalidatePath(`/book/${listItem.bookId}`)
 }
 
 const getListItems = async () => {
@@ -107,8 +110,8 @@ const getListItem = async (bookId: string) => {
   return listItems?.find(li => li.id === bookId) ?? null
 }
 
-const markAsRead = async (book: Book) => {
-  const { id, ...rest } = book
+const markAsRead = async (listItem: ListItem) => {
+  const { id, ...rest } = listItem
 
   try {
     await prisma.listItem.update({
@@ -121,11 +124,11 @@ const markAsRead = async (book: Book) => {
 
   revalidatePath(`/`)
   revalidatePath(`/finished`)
-  revalidatePath(`/book/${book.id}`)
+  revalidatePath(`/book/${listItem.bookId}`)
 }
 
-const markAsUnRead = async (book: Book) => {
-  const { id, ...rest } = book
+const markAsUnRead = async (listItem: ListItem) => {
+  const { id, ...rest } = listItem
 
   try {
     await prisma.listItem.update({
@@ -138,11 +141,11 @@ const markAsUnRead = async (book: Book) => {
 
   revalidatePath(`/`)
   revalidatePath(`/finished`)
-  revalidatePath(`/book/${book.id}`)
+  revalidatePath(`/book/${listItem.bookId}`)
 }
 
-const updateListItem = async (book: ListItem, data: FormData) => {
-  const { id, ...rest } = book
+const updateListItem = async (listItem: ListItem, data: FormData) => {
+  const { id, ...rest } = listItem
 
   const notes = data.get('notes')
 
@@ -156,7 +159,7 @@ const updateListItem = async (book: ListItem, data: FormData) => {
       console.log(error)
     }
 
-  revalidatePath(`/book/${book.id}`)
+  revalidatePath(`/book/${listItem.bookId}`)
 }
 
 export {

@@ -28,6 +28,7 @@ model Book {
 
 model ListItem {
   id            String    @id @default(uuid())
+  bookId        String    
   title         String
   author        String
   coverImageUrl String

@@ -1,4 +1,4 @@
-import type { Book } from '@prisma/client'
+import type { Book, ListItem } from '@prisma/client'
 import type { ReactElement } from 'react'
 import type { CircleButtonProps } from './buttons'
 import { Fragment } from 'react'
@@ -11,14 +11,14 @@ import {
 import { SubmitCircleButton } from './buttons'
 import * as actions from '@/utils/actions'
 
-const TooltipButton = ({
+const TooltipButton = <DataType,>({
   action,
   book,
   icon,
   variant,
 }: {
-  action: (book: Book) => Promise<void>
-  book: Book
+  action: (book: DataType) => Promise<void>
+  book: DataType
   icon: ReactElement
   variant?: CircleButtonProps['variant']
 }) => {
@@ -36,14 +36,14 @@ const StatusButtons = async ({ book }: { book: Book }) => {
     <Fragment>
       {listItem ? (
         Boolean(listItem.finishDate) ? (
-          <TooltipButton
+          <TooltipButton<ListItem>
             action={actions.markAsUnRead}
             book={listItem}
             icon={<FaBook />}
             variant="yellow"
           />
         ) : (
-          <TooltipButton
+          <TooltipButton<ListItem>
             action={actions.markAsRead}
             book={listItem}
             icon={<FaCheckCircle />}
@@ -53,14 +53,14 @@ const StatusButtons = async ({ book }: { book: Book }) => {
       ) : null}
 
       {listItem ? (
-        <TooltipButton
+        <TooltipButton<ListItem>
           action={actions.removeListItem}
           book={listItem}
           icon={<FaMinusCircle />}
           variant="red"
         />
       ) : (
-        <TooltipButton
+        <TooltipButton<Book>
           action={actions.createListItem}
           book={book}
           icon={<FaPlusCircle />}
