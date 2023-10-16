@@ -66,9 +66,7 @@ const NotesTextarea = ({ listItem }: { listItem: ListItem }) => {
         defaultValue={listItem.notes?.toString()}
       />
 
-      <SubmitButton variant="secondary" type="submit">
-        Post
-      </SubmitButton>
+      <SubmitButton variant="secondary">Post</SubmitButton>
     </form>
   )
 }
