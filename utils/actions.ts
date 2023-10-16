@@ -107,7 +107,7 @@ const getListItems = async () => {
 const getListItem = async (bookId: string) => {
   const listItems = await getListItems()
 
-  return listItems?.find(li => li.id === bookId) ?? null
+  return listItems?.find(li => li.bookId === bookId) ?? null
 }
 
 const markAsRead = async (listItem: ListItem) => {
