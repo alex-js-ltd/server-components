@@ -3,7 +3,7 @@
 import type { ReactElement, SyntheticEvent } from 'react'
 import type { SignUpResource, SignInResource } from '@clerk/types'
 
-import { cloneElement } from 'react'
+import { cloneElement, useState } from 'react'
 import { FormGroup, Input } from '@/comps/form-elements'
 import { Button } from '@/comps/buttons'
 import { Modal } from '@/comps/modal'
@@ -120,7 +120,7 @@ const SignInForm = () => {
 
 const SignUpForm = () => {
   const { signUp, setActive } = useSignUp()
-
+  const [checkEmail, setCheckEmail] = useState(false)
   if (!signUp) return null
 
   const onSubmit = async (email: string, password: string) => {
@@ -135,6 +135,8 @@ const SignUpForm = () => {
           redirectUrl: `${BASE_URL}`,
         })
 
+        setCheckEmail(true)
+
         if (completeSignUp.status === 'complete') {
           await setActive({ session: completeSignUp.createdSessionId })
         }
@@ -144,10 +146,16 @@ const SignUpForm = () => {
   }
 
   return (
-    <LoginForm
-      onSubmit={onSubmit}
-      submitButton={<Button variant="secondary">Register</Button>}
-    />
+    <div className="flex flex-col items-stretch w-full max-w-xs">
+      <LoginForm
+        onSubmit={onSubmit}
+        submitButton={<Button variant="secondary">Register</Button>}
+      />
+
+      {checkEmail ? (
+        <p className="text-left">please check your email to gain access</p>
+      ) : null}
+    </div>
   )
 }
 
